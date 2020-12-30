@@ -1,5 +1,6 @@
 package com.david.ardfmanager.tracks;
 
+import com.david.ardfmanager.competitors.Competitor;
 import com.david.ardfmanager.controlpoint.ControlPoint;
 
 import org.json.JSONArray;
@@ -13,8 +14,8 @@ public class Track implements Serializable {
 
     private String name;
     private float length;
-    //private ArrayList<Competitor> competitors = new ArrayList<Competitor>();
     private ArrayList<ControlPoint> controlPoints = new ArrayList<ControlPoint>();
+    //private ArrayList<Competitor> competitors = new ArrayList<Competitor>();
 
     public Track(String name, float length, ArrayList<ControlPoint> controlPoints) {
         this.name = name;
@@ -51,11 +52,7 @@ public class Track implements Serializable {
     }
 
     public int getControlPointCount() {
-        if(controlPoints != null){
             return controlPoints.size();
-        }else{
-            return -1;
-        }
     }
 
     public ArrayList<ControlPoint> getControlPoints(){
@@ -65,6 +62,7 @@ public class Track implements Serializable {
     public void setControlPoints(ArrayList<ControlPoint> in){
         this.controlPoints = in;
     }
+
 
         /*
     public void pridejKontrolu(Kontrola k) {

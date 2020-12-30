@@ -6,6 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".event.EventsManagerActivity">
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btn_event_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:layout_margin="16dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="32dp"
+        android:src="@drawable/ic_add"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
     <LinearLayout
         android:id="@+id/linearLayout3"
         android:layout_width="match_parent"
@@ -19,21 +31,28 @@
             android:layout_height="match_parent"
             android:layout_weight=".25"
             android:gravity="center"
-            android:text="@string/name" />
+            android:text="@string/title" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight=".25"
             android:gravity="center"
-            android:text="@string/track_count" />
+            android:text="@string/level" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight=".25"
             android:gravity="center"
-            android:text="@string/competitor_count" />
+            android:text="@string/band" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".25"
+            android:gravity="center"
+            android:text="@string/type" />
 
     </LinearLayout>
 
@@ -45,5 +64,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3" >
+
+    </ListView>
 </androidx.constraintlayout.widget.ConstraintLayout>

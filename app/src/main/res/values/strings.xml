@@ -33,6 +33,42 @@
     <string name="edit_control_point">Upravit kontrolu</string>
     <string name="delete">Smazat</string>
     <string name="track_count">Počet tratí</string>
+    <string name="event_level_0">Národní</string>
+    <string name="event_level_1">Regionální</string>
+    <string name="event_level_2">Okresní</string>
+    <string name="event_level_3">Nešampionát?</string>
+    <string name="event_band_0">Kombinované</string>
+    <string name="event_band_1">80m</string>
+    <string name="event_band_2">2m</string>
+    <string name="event_type_0">Klasický</string>
+    <string name="event_type_1">Foxoring</string>
+    <string name="event_type_2">Sprint</string>
+    <string name="event_type_3">Dlouhý</string>
+    <string name="title">Název</string>
+    <string name="level">Úroveň</string>
+    <string name="band">Pásmo</string>
+    <string name="type">Typ</string>
 
+
+    <string-array name="levels">
+        <item>@string/event_level_0</item>
+        <item>@string/event_level_1</item>
+        <item>@string/event_level_2</item>
+        <item>@string/event_level_3</item>
+    </string-array>
+
+    <string-array name="bands">
+        <item>@string/event_band_0</item>
+        <item>@string/event_band_1</item>
+        <item>@string/event_band_2</item>
+    </string-array>
+
+    <string-array name="types">
+        <item>@string/event_type_0</item>
+        <item>@string/event_type_1</item>
+        <item>@string/event_type_2</item>
+        <item>@string/event_type_3</item>
+    </string-array>
+    <string name="new_event">Nová akce</string>
 
 </resources>

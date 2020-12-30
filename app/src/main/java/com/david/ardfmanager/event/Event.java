@@ -1,5 +1,8 @@
 package com.david.ardfmanager.event;
 
+import android.content.res.Resources;
+
+import com.david.ardfmanager.R;
 import com.david.ardfmanager.competitors.Competitor;
 import com.david.ardfmanager.tracks.Track;
 
@@ -7,26 +10,27 @@ import java.util.ArrayList;
 
 public class Event {
 
-    private String name;
+    private String title;
     private int level;  //1-national ,2-regional ,3-district ,4-not a championship
     private int band;   //0-combinated, 1-80m, 2-2m
     private int type;   //0-classics, 1-foxoring, 2-sprint, 3-long
 
-    public static ArrayList<Track> tracksList;
-    public static ArrayList<Competitor> competitorsList;
+    private ArrayList<Track> tracksList = new ArrayList<Track>();
+    private ArrayList<Competitor> competitorsList = new ArrayList<Competitor>();
 
-    public Event(String name, int level, int band, int type) {
-        this.name = name;
+    public Event(String title, int level, int band, int type) {
+        this.title = title;
         this.level = level;
         this.band = band;
+        this.type = type;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public int getLevel() {
@@ -51,5 +55,21 @@ public class Event {
 
     public void setType(int type) {
         this.type = type;
+    }
+
+    public void setTracksList(ArrayList<Track> tracksList){
+        this.tracksList = tracksList;
+    }
+
+    public ArrayList<Track> getTracksList() {
+        return tracksList;
+    }
+
+    public void setCompetitorsList(ArrayList<Competitor> competitorsList) {
+        this.competitorsList = competitorsList;
+    }
+
+    public ArrayList<Competitor> getCompetitorsList() {
+        return competitorsList;
     }
 }
