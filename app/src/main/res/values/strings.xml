@@ -32,6 +32,7 @@
     <string name="control_point_count">Počet kontrol</string>
     <string name="edit_control_point">Upravit kontrolu</string>
     <string name="delete">Smazat</string>
+    <string name="track_count">Počet tratí</string>
 
 
 </resources>
