@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/tracks">
+    <fragment
+        android:id="@+id/tracks"
+        android:name="com.david.ardfmanager.tracks.tracks_fragment"
+        android:label="@string/title_tracks"
+        tools:layout="@layout/fragment_tracks" />
+    <fragment
+        android:id="@+id/competitors"
+        android:name="com.david.ardfmanager.competitors.competitors_fragment"
+        android:label="@string/title_competitors"
+        tools:layout="@layout/fragment_competitors" />
+    <fragment
+        android:id="@+id/readouts"
+        android:name="com.david.ardfmanager.readouts.readouts_fragment"
+        android:label="@string/title_readouts"
+        tools:layout="@layout/fragment_readouts" />
+    <fragment
+        android:id="@+id/results2"
+        android:name="com.david.ardfmanager.results.results_fragment"
+        android:label="@string/title_results"
+        tools:layout="@layout/fragment_results" />
+</navigation>

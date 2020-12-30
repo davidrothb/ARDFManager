@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <CheckBox
+        android:id="@+id/isObligatory"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/obligatory" />
+
+    <CheckBox
+        android:id="@+id/isBeacon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/beacon" />
+
+    <EditText
+        android:id="@+id/number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/number"
+        android:inputType="number"
+        android:maxLength="4"/>
+
+    <EditText
+        android:id="@+id/code"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/code"
+        android:inputType="number"
+        android:maxLength="4"/>
+
+
+</LinearLayout>

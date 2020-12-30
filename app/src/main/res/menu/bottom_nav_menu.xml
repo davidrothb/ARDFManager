@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/tracks"
+        android:icon="@drawable/ic_track"
+        android:title="@string/title_tracks" />
+
+    <item
+        android:id="@+id/competitors"
+        android:icon="@drawable/ic_competitor"
+        android:title="@string/title_competitors" />
+
+    <item
+        android:id="@+id/readouts"
+        android:icon="@drawable/ic_readouts"
+        android:title="@string/title_readouts" />
+
+    <item
+        android:id="@+id/results2"
+        android:icon="@drawable/ic_results"
+        android:title="@string/title_results" />
+
+</menu>

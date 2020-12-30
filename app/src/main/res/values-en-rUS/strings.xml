@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ARDFManager</string>
+    <string name="title_tracks">Tracks</string>
+    <string name="title_competitors">Competitors</string>
+    <string name="title_readouts">Readouts</string>
+    <string name="title_results">Results</string>
+    <string name="confirm_button">Confirm</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="name">Name</string>
+    <string name="add_track">Add track</string>
+    <string name="global_settings">Global settings</string>
+    <string name="events">Events</string>
+    <string name="help">Help and documentation</string>
+    <string name="errFileRead">An error occured while reading from the file!</string>
+</resources>

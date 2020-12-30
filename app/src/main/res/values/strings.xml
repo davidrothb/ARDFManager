@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">ARDFManager</string>
+    <string name="title_tracks">Tratě</string>
+    <string name="title_competitors">Závodníci</string>
+    <string name="title_readouts">Vyčítání</string>
+    <string name="title_results">Výsledky</string>
+    <string name="confirm_button">Potvrdit</string>
+    <string name="name">Jméno</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="add_track">Přidat trať</string>
+    <string name="global_settings">Nastavení</string>
+    <string name="events">Správa závodů</string>
+    <string name="help">Nápověda a dokumentace</string>
+    <string name="errFileRead">Chyba při čtení ze souboru!</string>
+    <string name="length">Délka</string>
+    <string name="track_length">Délka tratě</string>
+    <string name="control_points">Kontroly</string>
+    <string name="addPunchButtonText" translatable="false">Přidat kontrolu</string>
+    <string name="ok">Ok</string>
+    <string name="cancel">Zavřít</string>
+    <string name="new_control_point">Nová kontrola</string>
+    <string name="beacon">Maják</string>
+    <string name="obligatory">Povinná</string>
+    <string name="number">Číslo</string>
+    <string name="code">Kód</string>
+    <string name="non_obligatory">Nepovinná</string>
+    <string name="required">Požadováno</string>
+    <string name="obligation">Povinnost</string>
+    <string name="competitor_count">Počet závodníků</string>
+    <string name="control_point_count">Počet kontrol</string>
+    <string name="edit_control_point">Upravit kontrolu</string>
+    <string name="delete">Smazat</string>
+
+
+</resources>
