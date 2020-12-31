@@ -24,8 +24,8 @@ public class ControlPoint implements Serializable {
         JSONObject json = new JSONObject();
         json.put("number", this.number);
         json.put("code", this.code);
-        json.put("obligatory", this.obligatory);
-        json.put("beacon", this.beacon);
+        json.put("isObligatory", this.obligatory);
+        json.put("isBeacon", this.beacon);
         return json;
     }
 
