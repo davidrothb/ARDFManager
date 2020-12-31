@@ -17,7 +17,7 @@
         android:title="@string/title_readouts" />
 
     <item
-        android:id="@+id/results2"
+        android:id="@+id/results"
         android:icon="@drawable/ic_results"
         android:title="@string/title_results" />
 

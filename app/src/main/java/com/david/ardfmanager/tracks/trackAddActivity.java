@@ -68,19 +68,20 @@ public class trackAddActivity extends AppCompatActivity {
                 if(intent.hasExtra("name") && intent.hasExtra("length") && intent.hasExtra("controlPoints")) {
                     System.out.println("potvrzeni z editace");
                     int trackIndex = intent.getIntExtra("trackIndex", -1);
-                    MainActivity.tracksList.get(trackIndex).setName(nameEditText.getText().toString());
-                    MainActivity.tracksList.get(trackIndex).setLength(Float.parseFloat(lengthEditText.getText().toString()));
-                    MainActivity.tracksList.get(trackIndex).setControlPoints(controlPointsList);
-                    MainActivity.setAllAdapters();
+                    MainActivity.event.getTracksList().get(trackIndex).setName(nameEditText.getText().toString());
+                    MainActivity.event.getTracksList().get(trackIndex).setLength(Float.parseFloat(lengthEditText.getText().toString()));
+                    MainActivity.event.getTracksList().get(trackIndex).setControlPoints(controlPointsList);
+                    MainActivity.setAllAdaptersAndSave();
                     finish();
                 }
 
-
                 if (checkFilled(nameEditText) && checkFilled(lengthEditText)) {
                 Intent intent = new Intent();
-                intent.putExtra("name", nameEditText.getText().toString());
-                intent.putExtra("length", lengthEditText.getText().toString());
-                intent.putExtra("cplist", controlPointsList);
+                Track track = new Track(
+                        nameEditText.getText().toString(),
+                        Float.parseFloat(lengthEditText.getText().toString()),
+                        controlPointsList);
+                intent.putExtra("track", track);
                 setResult(Activity.RESULT_OK, intent);
                 finish();
             }

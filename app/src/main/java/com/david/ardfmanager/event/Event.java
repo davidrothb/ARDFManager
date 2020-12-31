@@ -6,9 +6,10 @@ import com.david.ardfmanager.R;
 import com.david.ardfmanager.competitors.Competitor;
 import com.david.ardfmanager.tracks.Track;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Event {
+public class Event implements Serializable {
 
     private String title;
     private int level;  //1-national ,2-regional ,3-district ,4-not a championship
@@ -23,6 +24,15 @@ public class Event {
         this.level = level;
         this.band = band;
         this.type = type;
+    }
+
+    public Event(String title, int level, int band, int type, ArrayList<Track> tracksList, ArrayList<Competitor> competitorsList) {
+        this.title = title;
+        this.level = level;
+        this.band = band;
+        this.type = type;
+        this.tracksList = tracksList;
+        this.competitorsList = competitorsList;
     }
 
     public String getTitle() {
@@ -65,11 +75,19 @@ public class Event {
         return tracksList;
     }
 
+    public void addTrack(Track track){
+        this.tracksList.add(track);
+    }
+
     public void setCompetitorsList(ArrayList<Competitor> competitorsList) {
         this.competitorsList = competitorsList;
     }
 
     public ArrayList<Competitor> getCompetitorsList() {
         return competitorsList;
+    }
+
+    public void addCompetitor(Competitor competitor){
+        this.competitorsList.add(competitor);
     }
 }

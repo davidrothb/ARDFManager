@@ -20,7 +20,7 @@
         android:label="@string/title_readouts"
         tools:layout="@layout/fragment_readouts" />
     <fragment
-        android:id="@+id/results2"
+        android:id="@+id/results"
         android:name="com.david.ardfmanager.results.results_fragment"
         android:label="@string/title_results"
         tools:layout="@layout/fragment_results" />

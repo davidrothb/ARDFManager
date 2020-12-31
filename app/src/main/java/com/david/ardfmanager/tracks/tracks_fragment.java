@@ -79,9 +79,9 @@ public class tracks_fragment extends Fragment {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(tracks_fragment.this.getActivity(), trackAddActivity.class);
-                intent.putExtra("name", MainActivity.tracksList.get(i).getName());
-                intent.putExtra("length", MainActivity.tracksList.get(i).getLength());
-                intent.putExtra("controlPoints", MainActivity.tracksList.get(i).getControlPoints());
+                intent.putExtra("name", MainActivity.event.getTracksList().get(i).getName());
+                intent.putExtra("length", MainActivity.event.getTracksList().get(i).getLength());
+                intent.putExtra("controlPoints", MainActivity.event.getTracksList().get(i).getControlPoints());
                 intent.putExtra("trackIndex", i);
                 startActivity(intent);
                 return false;

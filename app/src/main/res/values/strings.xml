@@ -70,5 +70,6 @@
         <item>@string/event_type_3</item>
     </string-array>
     <string name="new_event">Nová akce</string>
+    <string name="storage_permission_not_granted">Oprávnění k přístupu do úložistě nebylo uděleno</string>
 
 </resources>
