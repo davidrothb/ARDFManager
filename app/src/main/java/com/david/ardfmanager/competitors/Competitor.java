@@ -1,9 +1,12 @@
 package com.david.ardfmanager.competitors;
 
+import com.david.ardfmanager.Punch;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.sql.Time;
+import java.util.ArrayList;
 
 public class Competitor {
     private String name;
@@ -16,6 +19,29 @@ public class Competitor {
     private String track;
     private Time startTime;
     private Time finishTime;
+    private Time checkTime;
+    private Time totalTime;
+    private int totalFoxNum;
+    private int validFoxNum;
+
+    private static ArrayList<Punch> punches = new ArrayList<>();
+
+    public static void setPunches(ArrayList<Punch> punches) {
+        Competitor.punches = punches;
+    }
+
+    public static ArrayList<Punch> getPunches() {
+        return punches;
+    }
+
+
+    public boolean hasStartTime(){
+        return (startTime != null);
+    }
+
+    public void setTotalFoxNum(int foxNum){
+        this.totalFoxNum = foxNum;
+    }
 
     public Competitor(String name) {
         this.name = name;

@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.TabHost;
 import android.widget.Toast;
 
+import com.david.ardfmanager.SI.ReadoutTestActivity;
 import com.david.ardfmanager.event.EventsManagerActivity;
 
 public class MainMenuActivity extends AppCompatActivity {
@@ -43,7 +44,9 @@ public class MainMenuActivity extends AppCompatActivity {
         settingsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(MainMenuActivity.this, "Not yet implemented!", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(MainMenuActivity.this, "Not yet implemented!", Toast.LENGTH_SHORT).show();
+                //Intent intent = new Intent(MainMenuActivity.this, ReadoutTestActivity.class);
+                //startActivity(intent);
             }
         });
 

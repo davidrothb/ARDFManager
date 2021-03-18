@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">ARDFManager</string>
     <string name="title_tracks">Tracks</string>
     <string name="title_competitors">Competitors</string>
     <string name="title_readouts">Readouts</string>
@@ -13,4 +12,5 @@
     <string name="events">Events</string>
     <string name="help">Help and documentation</string>
     <string name="errFileRead">An error occured while reading from the file!</string>
+    <string name="ardf_running">ARDF Manager is running</string>
 </resources>
