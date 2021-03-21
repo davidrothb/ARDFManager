@@ -1,12 +1,14 @@
 package com.david.ardfmanager;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.TaskStackBuilder;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
@@ -33,12 +35,14 @@ import com.david.ardfmanager.tracks.trackAddActivity;
 import com.david.ardfmanager.tracks.tracks_fragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
 
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -78,10 +82,14 @@ public class MainActivity extends AppCompatActivity {
     NotificationManager notificationManager;
     NotificationCompat.Builder builder;
 
+    //toolbar nahore
+    Toolbar toolbar;
+
     //SI VOLE
     private CardReaderBroadcastReceiver mMessageReceiver = new CardReaderBroadcastReceiver(MainActivity.this);
     private CardReader cardReader;
 
+    BottomNavigationView bottomNavigationView;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -90,9 +98,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //toolbar at the top
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar)findViewById(R.id.toolbar);
         toolbar.getOverflowIcon().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
-        toolbar.setTitle("pokus");
         setSupportActionBar(toolbar);
 
         //bottom si status text
@@ -119,8 +126,20 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
 
+        navView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                getSupportActionBar().setTitle(event.getTitle());
+                if(navController.getCurrentDestination().getLabel().toString() == getResources().getString(R.string.title_results)){
+                    System.out.println("výýsůedly");
+                }
+                return true;
+            }
+        });
+
         Intent intent = getIntent();
         event = (Event)intent.getSerializableExtra("event");
+        toolbar.setTitle(event.getTitle());
         if(event.getTracksList().isEmpty()){
             Toast.makeText(MainActivity.this, "Nema trate", Toast.LENGTH_SHORT).show();
         }
@@ -168,7 +187,7 @@ public class MainActivity extends AppCompatActivity {
 
          builder = new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_baseline_run_circle_24)
-                .setContentTitle(getResources().getString(R.string.ardf_running))
+                .setContentTitle(event.getTitle() + getResources().getString(R.string.running))//getResources().getString(R.string.ardf_running))
                 .setContentText(getResources().getString(R.string.last_read_si))
                 .setStyle(new NotificationCompat.BigTextStyle()
                         .bigText("Much longer text that cannot fit one line...Much longer text that cannot fit one line...Much longer text that cannot fit one line..."))
@@ -192,15 +211,32 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.eventRunningToggleBtn:
-                EVENT_RUNNING = !EVENT_RUNNING;
                 if(EVENT_RUNNING){
+                    AlertDialog.Builder alertBuilder = new AlertDialog.Builder(MainActivity.this);
+                    alertBuilder.setMessage("Opravdu chcete " + event.getTitle() + " ukončit?");
+                    alertBuilder.setPositiveButton("Ano", new DialogInterface.OnClickListener() {
+
+                        public void onClick(DialogInterface dialog, int which) {
+                            toolBarMenu.getItem(0).setTitle(getResources().getString(R.string.start));
+                            notificationManager.cancel(123);
+                            Toast.makeText(MainActivity.this, "Event zastaven!", Toast.LENGTH_SHORT).show();
+                            EVENT_RUNNING = !EVENT_RUNNING;
+                        }
+                    });
+                    alertBuilder.setNegativeButton("Ne", new DialogInterface.OnClickListener() {
+
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+                    AlertDialog alert = alertBuilder.create();
+                    alert.show();
+                }else{
                     toolBarMenu.getItem(0).setTitle(getResources().getString(R.string.stop));
                     notificationManager.notify(123, builder.build());
-                    Toast.makeText(this, "Event spuštěn!", Toast.LENGTH_SHORT).show();
-                }else{
-                    toolBarMenu.getItem(0).setTitle(getResources().getString(R.string.start));
-                    notificationManager.cancel(123);
-                    Toast.makeText(this, "Event zastaven!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Event spuštěn!", Toast.LENGTH_SHORT).show();
+                    EVENT_RUNNING = !EVENT_RUNNING;
                 }
                 return true;
 
@@ -237,8 +273,12 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed(){
-        EventsManagerActivity.saveEventToFile(event);
-        MainActivity.super.onBackPressed();
+        if(!EVENT_RUNNING) {
+            EventsManagerActivity.saveEventToFile(event);
+            MainActivity.super.onBackPressed();
+        }else{
+            Toast.makeText(MainActivity.this, "Event je spuštěn!", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
@@ -263,4 +303,5 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(MainActivity.this, "Zrušeno", Toast.LENGTH_SHORT).show();
         }
     }
+
 }

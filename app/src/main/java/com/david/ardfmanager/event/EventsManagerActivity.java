@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
@@ -13,6 +15,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
+import androidx.appcompat.widget.Toolbar;
 
 import com.david.ardfmanager.MainActivity;
 import com.david.ardfmanager.R;
@@ -45,10 +48,17 @@ public class EventsManagerActivity extends AppCompatActivity {
     ListView listView;
     EventListAdapter eventListAdapter;
 
+    Toolbar toolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_events_manager);
+
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.getOverflowIcon().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(getResources().getString(R.string.select_event));
 
         listView = (ListView) findViewById(R.id.eventsListView);
         eventArrayList.clear();

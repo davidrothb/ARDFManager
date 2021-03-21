@@ -81,5 +81,7 @@
     <string name="si_disconnected">SI čtečka odpojena</string>
     <string name="start" translatable="false">Start</string>
     <string name="stop" translatable="false">Stop</string>
+    <string name="running">" spuštěn"</string>
+    <string name="select_event">Vyberte závod</string>
 
 </resources>

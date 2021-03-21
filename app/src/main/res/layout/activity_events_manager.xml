@@ -6,6 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".event.EventsManagerActivity">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:titleTextColor="@android:color/white"></androidx.appcompat.widget.Toolbar>
+
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btn_event_add"
         android:layout_width="wrap_content"
@@ -24,7 +36,9 @@
         android:layout_height="wrap_content"
         android:background="@drawable/border_ui"
         android:orientation="horizontal"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
         <TextView
             android:layout_width="0dp"
