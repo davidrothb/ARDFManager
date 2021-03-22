@@ -85,6 +85,8 @@ public class MainActivity extends AppCompatActivity {
     //toolbar nahore
     Toolbar toolbar;
 
+    FloatingActionButton fab;
+
     //SI VOLE
     private CardReaderBroadcastReceiver mMessageReceiver = new CardReaderBroadcastReceiver(MainActivity.this);
     private CardReader cardReader;
@@ -101,6 +103,8 @@ public class MainActivity extends AppCompatActivity {
         toolbar = (Toolbar)findViewById(R.id.toolbar);
         toolbar.getOverflowIcon().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
         setSupportActionBar(toolbar);
+
+        fab = findViewById(R.id.fab);
 
         //bottom si status text
         SIStatusText = (TextView) findViewById(R.id.SIStatusText);
@@ -130,8 +134,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 getSupportActionBar().setTitle(event.getTitle());
-                if(navController.getCurrentDestination().getLabel().toString() == getResources().getString(R.string.title_results)){
-                    System.out.println("výýsůedly");
+                if(navView.getMenu().findItem(R.id.results) == item){
+                    fab.setImageDrawable(getResources().getDrawable(R.drawable.ic_share));
+                }else{
+                    fab.setImageDrawable(getResources().getDrawable(R.drawable.ic_add));
                 }
                 return true;
             }
@@ -151,7 +157,6 @@ public class MainActivity extends AppCompatActivity {
         setAllAdaptersAndSave();
 
 
-        FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

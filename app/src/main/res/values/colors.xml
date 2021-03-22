@@ -6,4 +6,5 @@
     <color name="colorRed">#ff0000</color>
     <color name="colorOutline">#525252</color>
     <color name="colorOrange">#FFA500</color>
+    <color name="colorWhite">#FFFFFF</color>
 </resources>
