@@ -7,8 +7,13 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
+import android.widget.ListView;
 
+import com.david.ardfmanager.MainActivity;
 import com.david.ardfmanager.R;
+import com.david.ardfmanager.competitors.competitors_fragment;
+import com.david.ardfmanager.readouts.readouts_fragment;
 
 
 /**

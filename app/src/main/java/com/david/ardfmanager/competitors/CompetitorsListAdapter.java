@@ -31,8 +31,6 @@ public class CompetitorsListAdapter extends ArrayAdapter<Competitor> {
     public View getView(int position, View convertView, ViewGroup parent) {
         String name = getItem(position).getName();
 
-        Competitor o = new Competitor(name);
-
         LayoutInflater inflater = LayoutInflater.from(mContext);
         convertView = inflater.inflate(mResource, parent, false);
 

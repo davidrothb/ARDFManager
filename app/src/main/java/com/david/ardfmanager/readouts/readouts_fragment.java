@@ -7,7 +7,10 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
+import android.widget.ListView;
 
+import com.david.ardfmanager.MainActivity;
 import com.david.ardfmanager.R;
 
 
@@ -25,6 +28,7 @@ public class readouts_fragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    public static ListView mListView;
 
     public readouts_fragment() {
         // Required empty public constructor
@@ -60,7 +64,14 @@ public class readouts_fragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_readouts, container, false);
+        //return inflater.inflate(R.layout.fragment_competitors, container, false);
+        mListView = (ListView) view.findViewById(R.id.readoutsListView);
+        mListView.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
+        mListView.setAdapter(MainActivity.siReadoutListAdapter);
+        return view;
+        /*
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_readouts, container, false);
+        return inflater.inflate(R.layout.fragment_readouts, container, false);*/
     }
 }

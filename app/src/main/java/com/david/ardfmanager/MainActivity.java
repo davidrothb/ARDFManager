@@ -7,6 +7,7 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.TaskStackBuilder;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -29,6 +30,10 @@ import com.david.ardfmanager.competitors.CompetitorsListAdapter;
 import com.david.ardfmanager.competitors.competitors_fragment;
 import com.david.ardfmanager.event.Event;
 import com.david.ardfmanager.event.EventsManagerActivity;
+import com.david.ardfmanager.readouts.SIReadout;
+import com.david.ardfmanager.readouts.SIReadoutListAdapter;
+import com.david.ardfmanager.readouts.readouts_fragment;
+import com.david.ardfmanager.results.results_fragment;
 import com.david.ardfmanager.tracks.Track;
 import com.david.ardfmanager.tracks.TracksListAdapter;
 import com.david.ardfmanager.tracks.trackAddActivity;
@@ -43,24 +48,32 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.menu.MenuView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.navigation.NavController;
+import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static ArrayList<Track> tracksList  = new ArrayList<>();;
+
+    public static ArrayList<Track> tracksList  = new ArrayList<>();
     public static TracksListAdapter tracksListAdapter;
-    public static ArrayList<Competitor> competitorsList = new ArrayList<>();;
+    public static ArrayList<Competitor> competitorsList = new ArrayList<>();
     public static CompetitorsListAdapter competitorsListAdapter;
+    public static ArrayList<SIReadout> siReadoutList = new ArrayList<>();
+    public static SIReadoutListAdapter siReadoutListAdapter;
 
     public static Event event;
     public static boolean EVENT_RUNNING = false;
@@ -86,12 +99,13 @@ public class MainActivity extends AppCompatActivity {
     Toolbar toolbar;
 
     FloatingActionButton fab;
+    BottomNavigationView navView;
+
 
     //SI VOLE
     private CardReaderBroadcastReceiver mMessageReceiver = new CardReaderBroadcastReceiver(MainActivity.this);
     private CardReader cardReader;
 
-    BottomNavigationView bottomNavigationView;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -112,7 +126,8 @@ public class MainActivity extends AppCompatActivity {
         SIStatusText.setBackgroundColor(Color.RED);
         SIStatusText.setText("SI disconnected");
 
-        // Create SIReader
+
+        //Create SIReader
         cardReader = new CardReader(this, Calendar.getInstance());
         cardReader.execute();
 
@@ -120,7 +135,8 @@ public class MainActivity extends AppCompatActivity {
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver, new IntentFilter(CardReader.EVENT_IDENTIFIER));
 
         //bottom fragment navigation controls
-        final BottomNavigationView navView = findViewById(R.id.nav_view);
+        navView = findViewById(R.id.nav_view);
+        
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.tracks,
                 R.id.competitors,
@@ -130,18 +146,22 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
 
-        navView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+        navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener(){
             @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                getSupportActionBar().setTitle(event.getTitle());
-                if(navView.getMenu().findItem(R.id.results) == item){
+            public void onDestinationChanged(@NonNull NavController controller, @NonNull NavDestination destination, @Nullable Bundle arguments) {
+                System.out.println("Destination changed!");
+                if(event != null) {
+                    getSupportActionBar().setTitle(event.getTitle());
+                }
+                String label = destination.getLabel().toString();
+                if(label == getResources().getString(R.string.title_results)){
                     fab.setImageDrawable(getResources().getDrawable(R.drawable.ic_share));
-                }else{
+                } else {
                     fab.setImageDrawable(getResources().getDrawable(R.drawable.ic_add));
                 }
-                return true;
             }
         });
+
 
         Intent intent = getIntent();
         event = (Event)intent.getSerializableExtra("event");
@@ -154,6 +174,7 @@ public class MainActivity extends AppCompatActivity {
         }
         tracksListAdapter = new TracksListAdapter(this, R.layout.track_view_layout, event.getTracksList());
         competitorsListAdapter = new CompetitorsListAdapter(this, R.layout.competitor_view_layout, event.getCompetitorsList());
+        siReadoutListAdapter = new SIReadoutListAdapter(this, R.layout.sireadout_view_layout, siReadoutList);
         setAllAdaptersAndSave();
 
 
@@ -162,14 +183,16 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 String currentFragment = navController.getCurrentDestination().getLabel().toString();
+                System.out.println(currentFragment);
                 if(currentFragment == getResources().getString(R.string.title_tracks)){
                     Intent intent = new Intent(MainActivity.this, trackAddActivity.class);
                     startActivityForResult(intent, INTENT_ADD_TRACK);
                 }else if(currentFragment == getResources().getString(R.string.title_competitors)){
                     Competitor c = new Competitor("pokus2");
-                    //competitorsList.add(0, c);
                     event.addCompetitor(c);
-                    System.out.println("priadadadadadadad");
+                }else if(currentFragment == getResources().getString(R.string.title_readouts)){
+                    SIReadout siReadout = new SIReadout(10, 10,10, 10);
+                    siReadoutList.add(siReadout);
                 }
                 setAllAdaptersAndSave();
             }
@@ -178,7 +201,7 @@ public class MainActivity extends AppCompatActivity {
         ///////////////////////////////////////////////////////////////////////
         notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
 
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel mChannel = new NotificationChannel(CHANNEL_ID, "Running notification", NotificationManager.IMPORTANCE_LOW);
             mChannel.setDescription("Shows a notification when an event is running.");
             mChannel.enableLights(true);
@@ -204,6 +227,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -213,7 +237,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item) {   //handling of topbar buttons(start, stop, settings, help)
         switch (item.getItemId()) {
             case R.id.eventRunningToggleBtn:
                 if(EVENT_RUNNING){
@@ -261,23 +285,29 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
     public static void setAllAdaptersAndSave() {
         if (tracks_fragment.mListView != null) {
             tracks_fragment.mListView.setAdapter(tracksListAdapter);
         }else{
             Log.d("fragments", "Tracks fragment object is null");
         }
+
         if (competitors_fragment.mListView != null) {
             competitors_fragment.mListView.setAdapter(competitorsListAdapter);
         }else{
             Log.d("fragments", "Competitors fragment object is null");
         }
+
+        if (readouts_fragment.mListView != null) {
+            readouts_fragment.mListView.setAdapter(siReadoutListAdapter);
+        }else{
+            Log.d("fragments", "Readout fragment object is null");
+        }
         EventsManagerActivity.saveEventToFile(event);
     }
 
     @Override
-    public void onBackPressed(){
+    public void onBackPressed(){    //dismiss back button when event is running
         if(!EVENT_RUNNING) {
             EventsManagerActivity.saveEventToFile(event);
             MainActivity.super.onBackPressed();
@@ -287,11 +317,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) { //handles results from intents
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == Activity.RESULT_OK) {
-
             switch (requestCode) {
                 case INTENT_ADD_TRACK:
                     Track t = (Track) data.getSerializableExtra("track");
@@ -300,7 +329,6 @@ public class MainActivity extends AppCompatActivity {
                     break;
 
                 case INTENT_ADD_COMPETITOR:
-
                     break;
 
             }

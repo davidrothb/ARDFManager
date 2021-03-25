@@ -7,8 +7,10 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.widget.Toast;
 
 import com.david.ardfmanager.MainActivity;
+import com.david.ardfmanager.readouts.SIReadout;
 
 
 public class CardReaderBroadcastReceiver extends BroadcastReceiver {
@@ -37,8 +39,10 @@ public class CardReaderBroadcastReceiver extends BroadcastReceiver {
                 break;
             case Readout:
                 CardReader.CardEntry cardEntry = (CardReader.CardEntry)intent.getParcelableExtra("Entry");
-                AlertDialog alertDialog = new AlertDialog.Builder(context).create();
-                if (cardEntry.startTime != 0) {
+                SIReadout siReadout = new SIReadout(cardEntry.cardId, cardEntry.startTime, cardEntry.finishTime, cardEntry.checkTime);
+                MainActivity.siReadoutList.add(siReadout);
+                MainActivity.setAllAdaptersAndSave();
+                /*if (cardEntry.startTime != 0) {
                     long timeDiff = cardEntry.finishTime - cardEntry.startTime;
                     long minutes = timeDiff / (60*1000);
                     long seconds = (timeDiff - minutes * 60 * 1000) / 1000;
@@ -54,13 +58,8 @@ public class CardReaderBroadcastReceiver extends BroadcastReceiver {
                 }else{
                     alertDialog.setTitle("Lol nejde neni cas");
                     alertDialog.setMessage("");
-                }
-                alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        });
-                alertDialog.show();
+                }*/
+                //Toast.makeText(context, String.valueOf(cardEntry.cardId), Toast.LENGTH_SHORT).show();
                 MainActivity.SIStatusText.setText(String.format("Device (%d) card %d read", deviceId, cardEntry.cardId));
                 break;
         }

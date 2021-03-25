@@ -10,10 +10,8 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TabHost;
 import android.widget.Toast;
 
-import com.david.ardfmanager.SI.ReadoutTestActivity;
 import com.david.ardfmanager.event.EventsManagerActivity;
 
 public class MainMenuActivity extends AppCompatActivity {

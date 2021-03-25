@@ -104,7 +104,7 @@ public class CardReader extends AsyncTask<String, String, String> {
             dest.writeList(this.punches);
         }
     }
-    enum Event {
+    public enum Event {
         DeviceDetected,
         ReadStarted,
         ReadCanceled,

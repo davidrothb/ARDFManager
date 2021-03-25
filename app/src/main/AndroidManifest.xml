@@ -13,8 +13,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-    <activity android:name=".SI.ReadoutTestActivity"></activity>
-
 
         <activity android:name=".MainActivity" />
         <activity
@@ -29,6 +27,7 @@
             </intent-filter>
         </activity>
 
+        <receiver android:name=".MainActivity" />
     </application>
 
 </manifest>

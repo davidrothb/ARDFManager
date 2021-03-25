@@ -71,7 +71,7 @@ public class competitors_fragment extends Fragment {
         //return inflater.inflate(R.layout.fragment_competitors, container, false);
         mListView = (ListView) view.findViewById(R.id.competitorsListView);
         mListView.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
-        competitors_fragment.mListView.setAdapter(MainActivity.competitorsListAdapter);
+        mListView.setAdapter(MainActivity.competitorsListAdapter);
         return view;
     }
 }
