@@ -125,7 +125,7 @@ public class trackAddActivity extends AppCompatActivity {
                             boolean isBeacon = CbIsBeacon.isChecked();
                             boolean isObligatory = CbIsObligatory.isChecked();
 
-                            ControlPoint cp = new ControlPoint(number, code, isBeacon, isObligatory);
+                            ControlPoint cp = new ControlPoint(number, code, isObligatory, isBeacon);
                             controlPointsList.add(cp);
                             sortAndSet();
                             alert.dismiss();

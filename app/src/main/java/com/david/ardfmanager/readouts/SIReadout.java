@@ -5,6 +5,7 @@ import com.david.ardfmanager.SI.CardReader;
 import java.util.ArrayList;
 
 public class SIReadout {
+
     private long cardId;
     private long startTime;
     private long finishTime;

@@ -26,6 +26,7 @@ import android.widget.Toast;
 import com.david.ardfmanager.SI.CardReader;
 import com.david.ardfmanager.SI.CardReaderBroadcastReceiver;
 import com.david.ardfmanager.competitors.Competitor;
+import com.david.ardfmanager.competitors.CompetitorAddActivity;
 import com.david.ardfmanager.competitors.CompetitorsListAdapter;
 import com.david.ardfmanager.competitors.competitors_fragment;
 import com.david.ardfmanager.event.Event;
@@ -100,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
 
     FloatingActionButton fab;
     BottomNavigationView navView;
+        //ToDo: neco
 
 
     //SI VOLE
@@ -174,6 +176,7 @@ public class MainActivity extends AppCompatActivity {
         }
         tracksListAdapter = new TracksListAdapter(this, R.layout.track_view_layout, event.getTracksList());
         competitorsListAdapter = new CompetitorsListAdapter(this, R.layout.competitor_view_layout, event.getCompetitorsList());
+        siReadoutList.clear();
         siReadoutListAdapter = new SIReadoutListAdapter(this, R.layout.sireadout_view_layout, siReadoutList);
         setAllAdaptersAndSave();
 
@@ -188,10 +191,10 @@ public class MainActivity extends AppCompatActivity {
                     Intent intent = new Intent(MainActivity.this, trackAddActivity.class);
                     startActivityForResult(intent, INTENT_ADD_TRACK);
                 }else if(currentFragment == getResources().getString(R.string.title_competitors)){
-                    Competitor c = new Competitor("pokus2");
-                    event.addCompetitor(c);
+                    Intent intent = new Intent(MainActivity.this, CompetitorAddActivity.class);
+                    startActivityForResult(intent, INTENT_ADD_COMPETITOR);
                 }else if(currentFragment == getResources().getString(R.string.title_readouts)){
-                    SIReadout siReadout = new SIReadout(10, 10,10, 10);
+                    SIReadout siReadout = new SIReadout(6969, 666666,666666666, 10);
                     siReadoutList.add(siReadout);
                 }
                 setAllAdaptersAndSave();
@@ -329,6 +332,10 @@ public class MainActivity extends AppCompatActivity {
                     break;
 
                 case INTENT_ADD_COMPETITOR:
+                    System.out.println("intent prisel");
+                    Competitor c = (Competitor) data.getSerializableExtra("competitor");
+                    event.addCompetitor(c);
+                    setAllAdaptersAndSave();
                     break;
 
             }

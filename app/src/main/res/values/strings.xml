@@ -83,5 +83,16 @@
     <string name="stop" translatable="false">Stop</string>
     <string name="running">" spuštěn"</string>
     <string name="select_event">Vyberte závod</string>
+    <string name="surname">Příjmení</string>
+    <string name="gender">Pohlaví</string>
+    <string name="male">Muž</string>
+    <string name="female">Žena</string>
+    <string name="year_of_birth">Rok narození</string>
+    <string name="call_sign">Volačka</string>
+    <string name="country">Země</string>
+    <string name="start_number">Startovní číslo</string>
+    <string name="index">Index</string>
+    <string name="start_time">Startovní čas</string>
+    <string name="tag_number">Číslo čipu</string>
 
 </resources>

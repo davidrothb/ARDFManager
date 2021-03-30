@@ -17,7 +17,8 @@ public class SIReadoutListAdapter extends ArrayAdapter<SIReadout> {
 
     private Context mContext;
     int mResource;
-    TextView textNumber;
+
+    TextView nameTextView, siNumberTextView, timeTextView, readoutTimeTextView;
 
     public SIReadoutListAdapter(Context context, int resource, ArrayList<SIReadout> objects) {
         super(context, resource, objects);
@@ -33,13 +34,24 @@ public class SIReadoutListAdapter extends ArrayAdapter<SIReadout> {
         long finishTime = getItem(position).getFinishTime();
         long checkTime = getItem(position).getCheckTime();
 
+        long timeDiff = finishTime - startTime;
+        long minutes = timeDiff / (60*1000);
+        long seconds = (timeDiff - minutes * 60 * 1000) / 1000;
+        long hundreds = (timeDiff - minutes * 60 * 1000 - seconds * 1000);
+
 
         LayoutInflater inflater = LayoutInflater.from(mContext);
         convertView = inflater.inflate(mResource, parent, false);
 
-        textNumber = (TextView) convertView.findViewById(R.id.textNumber);
+        nameTextView = (TextView) convertView.findViewById(R.id.nameTextView);
+        siNumberTextView = (TextView) convertView.findViewById(R.id.siNumberTextView);
+        timeTextView = (TextView) convertView.findViewById(R.id.timeTextView);
+        readoutTimeTextView = (TextView) convertView.findViewById(R.id.readoutTimeTextView);
 
-        textNumber.setText(String.valueOf(cardId));
+        //nameTextView.setText();
+        siNumberTextView.setText(String.valueOf(cardId));
+        timeTextView.setText(minutes + ":" + seconds + ":" + hundreds);
+        //readoutTimeTextView.setText();
 
         return convertView;
     }
