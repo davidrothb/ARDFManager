@@ -69,10 +69,12 @@ import androidx.navigation.ui.NavigationUI;
 public class MainActivity extends AppCompatActivity {
 
 
-    public static ArrayList<Track> tracksList  = new ArrayList<>();
+    //public static ArrayList<Track> tracksList  = new ArrayList<>();
+    //public static ArrayList<Competitor> competitorsList = new ArrayList<>();
+
     public static TracksListAdapter tracksListAdapter;
-    public static ArrayList<Competitor> competitorsList = new ArrayList<>();
     public static CompetitorsListAdapter competitorsListAdapter;
+
     public static ArrayList<SIReadout> siReadoutList = new ArrayList<>();
     public static SIReadoutListAdapter siReadoutListAdapter;
 
@@ -342,6 +344,16 @@ public class MainActivity extends AppCompatActivity {
         } else {
             Toast.makeText(MainActivity.this, "Zrušeno", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public static Competitor findCompBySI(long SINumber){
+        ArrayList<Competitor> arrayList = event.getCompetitorsList();
+        for(Competitor competitor : arrayList) {
+            if(competitor.getSINumber() == SINumber){
+                return competitor;
+            }
+        }
+        return null;
     }
 
 }

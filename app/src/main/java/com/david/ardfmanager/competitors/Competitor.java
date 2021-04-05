@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class Competitor implements Serializable {
 
     private int ID;
-    private int SINumber;
+    private long SINumber;
 
     private String name;
 
@@ -53,7 +53,7 @@ public class Competitor implements Serializable {
         this.surname = surname;
     }
 
-    public int getSINumber() {
+    public long getSINumber() {
         return SINumber;
     }
 
@@ -117,6 +117,10 @@ public class Competitor implements Serializable {
         this.callsign = callsign;
     }
 
+    public String getFullName(){
+        return name + " " + surname;
+    }
+
     public String getCountry() {
         return country;
     }
@@ -130,7 +134,7 @@ public class Competitor implements Serializable {
         this.startNumber= startNumber;
     }
 
-    public Competitor(int ID, int SINumber, String name, String surname, String category, int gender, int yearOfBirth, String callsign, String country, int startNumber, String index) {
+    public Competitor(int ID, long SINumber, String name, String surname, String category, int gender, int yearOfBirth, String callsign, String country, int startNumber, String index) {
         this.ID = ID;
         this.SINumber = SINumber;
         this.name = name;

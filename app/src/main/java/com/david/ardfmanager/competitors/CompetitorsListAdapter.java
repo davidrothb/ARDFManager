@@ -21,6 +21,8 @@ public class CompetitorsListAdapter extends ArrayAdapter<Competitor> {
     private Context mContext;
     int mResource;
 
+    TextView nameTextView, siNumberTextView;
+
     public CompetitorsListAdapter(Context context, int resource, ArrayList<Competitor> objects) {
         super(context, resource, objects);
         mContext = context;
@@ -29,13 +31,24 @@ public class CompetitorsListAdapter extends ArrayAdapter<Competitor> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        String name = getItem(position).getName();
+        String fullName = getItem(position).getFullName();
+
+        long siNumber = getItem(position).getSINumber();
 
         LayoutInflater inflater = LayoutInflater.from(mContext);
         convertView = inflater.inflate(mResource, parent, false);
 
-        TextView text = (TextView) convertView.findViewById(R.id.text_name);
-        text.setText(name);
+        nameTextView = convertView.findViewById(R.id.nameTextView);
+        siNumberTextView = convertView.findViewById(R.id.siNumberTextView);
+
+        nameTextView.setText(fullName);
+
+        if(siNumber != -1){
+            siNumberTextView.setText(String.valueOf(siNumber));
+        }else{
+            siNumberTextView.setText("-");
+        }
+
 
         return convertView;
     }

@@ -61,17 +61,35 @@ public class CompetitorAddActivity extends AppCompatActivity {
         confButt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 if(checkFilled(nameEditText) && checkFilled(surnameEditText)){
-                int ID = 0;
-                int SINumber = Integer.parseInt(tagNumberNumber.getText().toString());
-                String name = nameEditText.getText().toString();
-                String surname = surnameEditText.getText().toString();
-                String category = "kategorie";
-                int gender = genderSwitch.isActivated() ? 1 : 0;
-                int yearOfBirth = Integer.parseInt(yearTextNumber.getText().toString());
+                    String name = nameEditText.getText().toString();
+                    String surname = surnameEditText.getText().toString();
+
+                    int ID = 0;
+                    String category = "kategorie";
+                    int gender = genderSwitch.isActivated() ? 1 : 0;
+
+                    if(!tagNumberNumber.getText().toString().equals("")){
+                       SINumber = Integer.parseInt(tagNumberNumber.getText().toString());
+                    }else{
+                       SINumber = -1;
+                    }
+
+                    if(!yearTextNumber.getText().toString().equals("")){
+                        yearOfBirth = Integer.parseInt(yearTextNumber.getText().toString());
+                    }else{
+                        yearOfBirth = -1;
+                    }
+
+                    if(!startNumberNumber.getText().toString().equals("")){
+                        startNumber = Integer.parseInt(startNumberNumber.getText().toString());
+                    }else{
+                        startNumber = -1;
+                    }
+
                 String callsign = callSignEditText.getText().toString();
                 String country = countryEditText.getText().toString();
-                int startNumber = Integer.parseInt(startNumberNumber.getText().toString());
                 String index = indexEditText.getText().toString();
 
                 Competitor competitor = new Competitor(ID, SINumber, name, surname, category, gender, yearOfBirth, callsign, country, startNumber, index);
@@ -86,6 +104,7 @@ public class CompetitorAddActivity extends AppCompatActivity {
         });
 
     }
+
     public boolean checkFilled(EditText et){
         if(et.getText().toString().equals("")){
             et.setError(getResources().getString(R.string.required));

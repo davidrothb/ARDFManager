@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".tracks.CompetitorAddActivity">
 
+
     <EditText
         android:id="@+id/nameEditText"
         android:layout_width="0dp"

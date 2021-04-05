@@ -8,9 +8,12 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.david.ardfmanager.MainActivity;
 import com.david.ardfmanager.R;
+import com.david.ardfmanager.competitors.Competitor;
 import com.david.ardfmanager.controlpoint.ControlPoint;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class SIReadoutListAdapter extends ArrayAdapter<SIReadout> {
@@ -39,6 +42,9 @@ public class SIReadoutListAdapter extends ArrayAdapter<SIReadout> {
         long seconds = (timeDiff - minutes * 60 * 1000) / 1000;
         long hundreds = (timeDiff - minutes * 60 * 1000 - seconds * 1000);
 
+        DecimalFormat mFormat= new DecimalFormat("00");
+        String time = mFormat.format(minutes) + ":" + mFormat.format(seconds);
+
 
         LayoutInflater inflater = LayoutInflater.from(mContext);
         convertView = inflater.inflate(mResource, parent, false);
@@ -48,11 +54,21 @@ public class SIReadoutListAdapter extends ArrayAdapter<SIReadout> {
         timeTextView = (TextView) convertView.findViewById(R.id.timeTextView);
         readoutTimeTextView = (TextView) convertView.findViewById(R.id.readoutTimeTextView);
 
-        //nameTextView.setText();
+
+
+        Competitor competitor = MainActivity.findCompBySI(cardId);
+        if(competitor != null){
+            nameTextView.setText(competitor.getFullName());
+        }else{
+            nameTextView.setText(R.string.not_in_database);
+        }
+
         siNumberTextView.setText(String.valueOf(cardId));
-        timeTextView.setText(minutes + ":" + seconds + ":" + hundreds);
+        timeTextView.setText(time);
         //readoutTimeTextView.setText();
 
         return convertView;
     }
+
+
 }
