@@ -2,12 +2,8 @@ package com.david.ardfmanager;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.app.TaskStackBuilder;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -17,9 +13,16 @@ import android.graphics.PorterDuff;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,16 +37,12 @@ import com.david.ardfmanager.event.EventsManagerActivity;
 import com.david.ardfmanager.readouts.SIReadout;
 import com.david.ardfmanager.readouts.SIReadoutListAdapter;
 import com.david.ardfmanager.readouts.readouts_fragment;
-import com.david.ardfmanager.results.results_fragment;
 import com.david.ardfmanager.tracks.Track;
 import com.david.ardfmanager.tracks.TracksListAdapter;
 import com.david.ardfmanager.tracks.trackAddActivity;
 import com.david.ardfmanager.tracks.tracks_fragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.navigation.NavigationView;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -51,14 +50,9 @@ import java.util.Calendar;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.view.menu.MenuView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.NotificationCompat;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
@@ -88,8 +82,8 @@ public class MainActivity extends AppCompatActivity {
 
     public static String path = "";
 
-    public String name;
-    public float length;
+   /* public String name;
+    public float length;*/
 
     private Menu toolBarMenu; //menu in the top toolbar
     public static TextView SIStatusText; //bottom status text
@@ -104,6 +98,10 @@ public class MainActivity extends AppCompatActivity {
     FloatingActionButton fab;
     BottomNavigationView navView;
         //ToDo: neco
+
+    //competitor add dialog okynko promeny vole
+    int ID, SINumber, gender, yearOfBirth, startNumber;
+    String name, surname, category, callsign, country, index;
 
 
     //SI VOLE
@@ -194,7 +192,8 @@ public class MainActivity extends AppCompatActivity {
                     startActivityForResult(intent, INTENT_ADD_TRACK);
                 }else if(currentFragment == getResources().getString(R.string.title_competitors)){
                     Intent intent = new Intent(MainActivity.this, CompetitorAddActivity.class);
-                    startActivityForResult(intent, INTENT_ADD_COMPETITOR);
+                    //startActivityForResult(intent, INTENT_ADD_COMPETITOR);
+                    showCompetitorAddDialog();
                 }else if(currentFragment == getResources().getString(R.string.title_readouts)){
                     SIReadout siReadout = new SIReadout(6969, 666666,666666666, 10);
                     siReadoutList.add(siReadout);
@@ -355,5 +354,98 @@ public class MainActivity extends AppCompatActivity {
         }
         return null;
     }
+
+    private void showCompetitorAddDialog() {
+
+        ViewGroup viewGroup = findViewById(android.R.id.content);
+        View dialogView = LayoutInflater.from(this).inflate(R.layout.activity_competitor_add, viewGroup, false);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setView(dialogView);
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+
+        EditText nameEditText = dialogView.findViewById(R.id.nameEditText);
+        EditText surnameEditText = dialogView.findViewById(R.id.surnameEditText);
+        EditText tagNumberNumber = dialogView.findViewById(R.id.tagNumberNumber);
+        EditText yearTextNumber = dialogView.findViewById(R.id.yearTextNumber);
+        EditText countryEditText = dialogView.findViewById(R.id.countryEditText);
+        EditText indexEditText = dialogView.findViewById(R.id.indexEditText);
+        EditText startNumberNumber = dialogView.findViewById(R.id.startNumberNumber);
+        EditText callSignEditText = dialogView.findViewById(R.id.callSignEditText);
+        EditText startTimeEditText = dialogView.findViewById(R.id.startTimeEditText);
+
+        Spinner categorySpinner = dialogView.findViewById(R.id.categorySpinner);
+        Spinner clubSpinner = dialogView.findViewById(R.id.clubSpinner);
+
+        Switch genderSwitch = dialogView.findViewById(R.id.genderSwitch);
+        Button confButt = dialogView.findViewById(R.id.confButton);
+
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.categories, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        categorySpinner.setAdapter(adapter);
+
+        genderSwitch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(genderSwitch.isChecked()){
+                    genderSwitch.setText(R.string.female);
+                }else{
+                    genderSwitch.setText(R.string.male);
+                }
+            }
+        });
+
+        confButt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(checkFilled(nameEditText) && checkFilled(surnameEditText)) {
+                    String name = nameEditText.getText().toString();
+                    String surname = surnameEditText.getText().toString();
+
+                    int ID = 0;
+                    String category = "kategorie";
+                    int gender = genderSwitch.isActivated() ? 1 : 0;
+
+                    if (!tagNumberNumber.getText().toString().equals("")) {
+                        SINumber = Integer.parseInt(tagNumberNumber.getText().toString());
+                    } else {
+                        SINumber = -1;
+                    }
+
+                    if (!yearTextNumber.getText().toString().equals("")) {
+                        yearOfBirth = Integer.parseInt(yearTextNumber.getText().toString());
+                    } else {
+                        yearOfBirth = -1;
+                    }
+
+                    if (!startNumberNumber.getText().toString().equals("")) {
+                        startNumber = Integer.parseInt(startNumberNumber.getText().toString());
+                    } else {
+                        startNumber = -1;
+                    }
+                    callsign = callSignEditText.getText().toString();
+                    country = countryEditText.getText().toString();
+                    index = indexEditText.getText().toString();
+
+                    Competitor competitor = new Competitor(ID, SINumber, name, surname, category, gender, yearOfBirth, callsign, country, startNumber, index);
+                    event.addCompetitor(competitor);
+                    setAllAdaptersAndSave();
+                    alertDialog.dismiss();
+                }
+            }
+        });
+
+    }
+
+    public boolean checkFilled(EditText et){
+        if(et.getText().toString().equals("")){
+            et.setError(getResources().getString(R.string.required));
+            return false;
+        }else{
+            return true;
+        }
+    }
+
 
 }

@@ -10,10 +10,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Switch;
-import android.widget.TextView;
 
 import com.david.ardfmanager.R;
-import com.david.ardfmanager.tracks.Track;
 
 public class CompetitorAddActivity extends AppCompatActivity {
 
@@ -39,7 +37,7 @@ public class CompetitorAddActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_competitor_add);
+        setContentView(R.layout.activity_competitor_add_unused);
 
         nameEditText = findViewById(R.id.nameEditText);
         surnameEditText = findViewById(R.id.surnameEditText);

@@ -18,7 +18,7 @@
     <string name="track_length">Délka tratě</string>
     <string name="control_points">Kontroly</string>
     <string name="addPunchButtonText">Přidat kontrolu</string>
-    <string name="ok">Ok</string>
+    <string name="ok" translatable="false">OK</string>
     <string name="cancel">Zavřít</string>
     <string name="new_control_point">Nová kontrola</string>
     <string name="beacon">Maják</string>
@@ -69,6 +69,18 @@
         <item>@string/event_type_2</item>
         <item>@string/event_type_3</item>
     </string-array>
+
+    <string-array name="categories">
+        <item>Mercury</item>
+        <item>Venus</item>
+        <item>Earth</item>
+        <item>Mars</item>
+        <item>Jupiter</item>
+        <item>Saturn</item>
+        <item>Uranus</item>
+        <item>Neptune</item>
+    </string-array>
+
     <string name="new_event">Nová akce</string>
     <string name="storage_permission_not_granted">Oprávnění k přístupu do úložistě nebylo uděleno</string>
 
@@ -91,7 +103,7 @@
     <string name="call_sign">Volačka</string>
     <string name="country">Země</string>
     <string name="start_number">Startovní číslo</string>
-    <string name="index">Index</string>
+    <string name="index" translatable="false">Index</string>
     <string name="start_time">Startovní čas</string>
     <string name="tag_number">Číslo čipu</string>
     <string name="not_in_database">Není v databázi</string>
