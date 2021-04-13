@@ -1,7 +1,7 @@
 # ARDFManager
-Android app to manage ARDF events and read SportIdent Tags on Android. \n
-Currently in the stage of development. \n
-Developed by David Rothbauer and Pavel Kolský (Czech ARDF) \n
-\n
+Android app to manage ARDF events and read SportIdent Tags on Android. <br>
+Currently in the stage of development. <br>
+Developed by David Rothbauer and Pavel Kolský (Czech ARDF) <br>
+<br>
 We welcome any ideas for improvement.
 
