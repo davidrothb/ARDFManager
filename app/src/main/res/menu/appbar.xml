@@ -7,6 +7,10 @@
             android:title="Start"
             app:showAsAction="ifRoom"/>
 
+        <item android:id="@+id/trackMacroButton"
+            android:title="trate podle pravidel"
+            app:showAsAction="never"/>
+
         <item android:id="@+id/settingsBtn"
             android:title="@string/global_settings"
             app:showAsAction="never"/>

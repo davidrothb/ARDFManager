@@ -1,14 +1,5 @@
 package com.david.ardfmanager.results;
 
-import com.david.ardfmanager.MainActivity;
-import com.david.ardfmanager.MainMenuActivity;
-import com.david.ardfmanager.Punch;
-import com.david.ardfmanager.competitors.Competitor;
-import com.david.ardfmanager.controlpoint.ControlPoint;
-
-import java.util.ArrayList;
-import java.util.Collection;
-
 public class Results {
     /*
     ArrayList<Punch> punches - punches read from the SI  ......Last index should be finish. In case of no

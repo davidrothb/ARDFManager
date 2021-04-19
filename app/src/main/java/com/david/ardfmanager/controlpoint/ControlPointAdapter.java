@@ -15,7 +15,7 @@ public class ControlPointAdapter extends ArrayAdapter<ControlPoint> {
 
     private Context mContext;
     int mResource;
-    TextView textNumber, textCode, textObligatory, textBeacon;
+    TextView textNumber, textCode, textType;
 
     public ControlPointAdapter(Context context, int resource, ArrayList<ControlPoint> objects) {
         super(context, resource, objects);
@@ -28,8 +28,7 @@ public class ControlPointAdapter extends ArrayAdapter<ControlPoint> {
 
         int number = getItem(position).getNumber();
         int code = getItem(position).getCode();
-        boolean obligatory = getItem(position).isObligatory();
-        boolean beacon = getItem(position).isBeacon();
+        int type = getItem(position).getType();
 
 
         LayoutInflater inflater = LayoutInflater.from(mContext);
@@ -37,24 +36,27 @@ public class ControlPointAdapter extends ArrayAdapter<ControlPoint> {
 
         textNumber = (TextView) convertView.findViewById(R.id.textNumber);
         textCode = (TextView) convertView.findViewById(R.id.textCode);
-        textObligatory  = (TextView) convertView.findViewById(R.id.textObligatory);
-        textBeacon  = (TextView) convertView.findViewById(R.id.textBeacon);
+        textType  = (TextView) convertView.findViewById(R.id.textType);
 
 
         textNumber.setText(String.valueOf(number));
         textCode.setText(String.valueOf(code));
 
-        if(obligatory){
-            textObligatory.setText(R.string.obligatory);
-        }else{
-            textObligatory.setText(R.string.non_obligatory);
-        }
+        switch (type){
+            case 0:
+                textType.setText(R.string.control_point);
+                break;
 
-        if(beacon){
-            textBeacon.setTextColor(getContext().getResources().getColor(R.color.colorOrange));
-            textBeacon.setText(R.string.beacon);
-        }else{
-            textBeacon.setText("");
+            case 1:
+                textType.setText(R.string.beacon);
+                break;
+
+            case 2:
+                textType.setText(R.string.spectator);
+                break;
+
+            case -1:
+                textType.setText("Vole chyba!");
         }
 
         return convertView;

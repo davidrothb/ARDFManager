@@ -14,6 +14,8 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import com.david.ardfmanager.MainActivity;
 import com.david.ardfmanager.controlpoint.ControlPoint;
@@ -27,7 +29,7 @@ import java.util.Comparator;
 
 public class trackAddActivity extends AppCompatActivity {
 
-    Button confButton, addPunchButton;
+    /*Button confButton, addPunchButton;
     EditText nameEditText, lengthEditText;
     ListView cplv;
 
@@ -39,7 +41,7 @@ public class trackAddActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setTitle(R.string.add_track);
-        setContentView(R.layout.activity_track_add);
+        setContentView(R.layout.activity_track_add_unused);
 
         confButton = (Button) findViewById(R.id.confButton);
         addPunchButton = (Button) findViewById(R.id.addPunchButton);
@@ -99,8 +101,7 @@ public class trackAddActivity extends AppCompatActivity {
 
                 final EditText EtNumber = customLayout.findViewById(R.id.number);
                 final EditText EtCode = customLayout.findViewById(R.id.code);
-                final CheckBox CbIsBeacon = customLayout.findViewById(R.id.isBeacon);
-                final CheckBox CbIsObligatory = customLayout.findViewById(R.id.isObligatory);
+                final RadioGroup typePicker = customLayout.findViewById(R.id.typePicker);
 
                 builder.setPositiveButton(R.string.ok, null);
 
@@ -122,10 +123,9 @@ public class trackAddActivity extends AppCompatActivity {
                         if(checkFilled(EtNumber) && checkFilled(EtCode)){
                             int number = Integer.parseInt(EtNumber.getText().toString());
                             int code = Integer.parseInt(EtCode.getText().toString());
-                            boolean isBeacon = CbIsBeacon.isChecked();
-                            boolean isObligatory = CbIsObligatory.isChecked();
+                            int type = typePicker.getCheckedRadioButtonId();
 
-                            ControlPoint cp = new ControlPoint(number, code, isObligatory, isBeacon);
+                            ControlPoint cp = new ControlPoint(number, code, type);
                             controlPointsList.add(cp);
                             sortAndSet();
                             alert.dismiss();
@@ -137,7 +137,7 @@ public class trackAddActivity extends AppCompatActivity {
         });
 
 
-        cplv.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        /*cplv.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, final int i, long l) {  //edit dialog
 
@@ -224,5 +224,5 @@ public class trackAddActivity extends AppCompatActivity {
 
         cplv.setAdapter(controlPointAdapter);
     }
-
+*/
 }

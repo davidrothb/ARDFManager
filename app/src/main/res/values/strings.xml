@@ -107,5 +107,12 @@
     <string name="start_time">Startovní čas</string>
     <string name="tag_number">Číslo čipu</string>
     <string name="not_in_database">Není v databázi</string>
+    <string name="control_type">Typ kontroly</string>
+    <string name="add_competitor">Přidat závodníka</string>
+    <string name="controlpoint_type_0">Kontrola</string>
+    <string name="controlpoint_type_1">Maják</string>
+    <string name="controlpoint_type_2">Divácká kontrola</string>
+    <string name="spectator">Divácká</string>
+    <string name="control_point">Kontrola</string>
 
 </resources>

@@ -27,11 +27,13 @@ public class Track implements Serializable {
         JSONObject json = new JSONObject();
         json.put("name", this.name);
         json.put("length", this.length);
-        JSONArray jsonControlPointsArray = new JSONArray();
-        for (int i = 0; i < controlPoints.size(); i++) {
-            jsonControlPointsArray.put(controlPoints.get(i).ControlPointToJSON());
+        if(!controlPoints.isEmpty()) {
+            JSONArray jsonControlPointsArray = new JSONArray();
+            for (int i = 0; i < controlPoints.size(); i++) {
+                jsonControlPointsArray.put(controlPoints.get(i).ControlPointToJSON());
+            }
+            json.put("controlPoints", jsonControlPointsArray);
         }
-        json.put("controlPoints", jsonControlPointsArray);
         return json;
     }
 

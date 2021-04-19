@@ -8,10 +8,13 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.InputFilter;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -21,6 +24,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -32,6 +36,8 @@ import com.david.ardfmanager.competitors.Competitor;
 import com.david.ardfmanager.competitors.CompetitorAddActivity;
 import com.david.ardfmanager.competitors.CompetitorsListAdapter;
 import com.david.ardfmanager.competitors.competitors_fragment;
+import com.david.ardfmanager.controlpoint.ControlPoint;
+import com.david.ardfmanager.controlpoint.ControlPointAdapter;
 import com.david.ardfmanager.event.Event;
 import com.david.ardfmanager.event.EventsManagerActivity;
 import com.david.ardfmanager.readouts.SIReadout;
@@ -62,6 +68,7 @@ import androidx.navigation.ui.NavigationUI;
 
 public class MainActivity extends AppCompatActivity {
 
+    //ToDo: edit dialogs, saving right after object is created
 
     //public static ArrayList<Track> tracksList  = new ArrayList<>();
     //public static ArrayList<Competitor> competitorsList = new ArrayList<>();
@@ -97,7 +104,6 @@ public class MainActivity extends AppCompatActivity {
 
     FloatingActionButton fab;
     BottomNavigationView navView;
-        //ToDo: neco
 
     //competitor add dialog okynko promeny vole
     int ID, SINumber, gender, yearOfBirth, startNumber;
@@ -107,6 +113,12 @@ public class MainActivity extends AppCompatActivity {
     //SI VOLE
     private CardReaderBroadcastReceiver mMessageReceiver = new CardReaderBroadcastReceiver(MainActivity.this);
     private CardReader cardReader;
+
+    //rozmery displeje
+    public static DisplayMetrics displayMetrics;
+
+    public static Resources resources;
+
 
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -138,6 +150,13 @@ public class MainActivity extends AppCompatActivity {
 
         //bottom fragment navigation controls
         navView = findViewById(R.id.nav_view);
+
+        //rozmery displeje pro dialogy
+        displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+
+        //resources
+        resources = getResources();
         
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.tracks,
@@ -188,10 +207,11 @@ public class MainActivity extends AppCompatActivity {
                 String currentFragment = navController.getCurrentDestination().getLabel().toString();
                 System.out.println(currentFragment);
                 if(currentFragment == getResources().getString(R.string.title_tracks)){
-                    Intent intent = new Intent(MainActivity.this, trackAddActivity.class);
-                    startActivityForResult(intent, INTENT_ADD_TRACK);
+                    //Intent intent = new Intent(MainActivity.this, trackAddActivity.class);
+                    //startActivityForResult(intent, INTENT_ADD_TRACK);
+                    tracks_fragment.showTrackAddDialog(MainActivity.this, null);
                 }else if(currentFragment == getResources().getString(R.string.title_competitors)){
-                    Intent intent = new Intent(MainActivity.this, CompetitorAddActivity.class);
+                    //Intent intent = new Intent(MainActivity.this, CompetitorAddActivity.class);
                     //startActivityForResult(intent, INTENT_ADD_COMPETITOR);
                     showCompetitorAddDialog();
                 }else if(currentFragment == getResources().getString(R.string.title_readouts)){
@@ -271,6 +291,16 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, "Event spuštěn!", Toast.LENGTH_SHORT).show();
                     EVENT_RUNNING = !EVENT_RUNNING;
                 }
+                return true;
+
+            case R.id.trackMacroButton:
+                Track t1 = new Track("1", 25, new ArrayList<>());
+                Track t2 = new Track("2", 30, new ArrayList<>());
+                Track t3 = new Track("3", 35, new ArrayList<>());
+                event.addTrack(t1);
+                event.addTrack(t2);
+                event.addTrack(t3);
+                setAllAdaptersAndSave();
                 return true;
 
             case R.id.settingsBtn:
@@ -355,12 +385,15 @@ public class MainActivity extends AppCompatActivity {
         return null;
     }
 
+
+
     private void showCompetitorAddDialog() {
 
         ViewGroup viewGroup = findViewById(android.R.id.content);
         View dialogView = LayoutInflater.from(this).inflate(R.layout.activity_competitor_add, viewGroup, false);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.add_competitor);
         builder.setView(dialogView);
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
@@ -399,7 +432,7 @@ public class MainActivity extends AppCompatActivity {
         confButt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(checkFilled(nameEditText) && checkFilled(surnameEditText)) {
+                if(checkFilled(MainActivity.this, nameEditText) && checkFilled(MainActivity.this, surnameEditText)) {
                     String name = nameEditText.getText().toString();
                     String surname = surnameEditText.getText().toString();
 
@@ -438,14 +471,15 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public boolean checkFilled(EditText et){
+    public static boolean checkFilled(Context c, EditText et){
         if(et.getText().toString().equals("")){
-            et.setError(getResources().getString(R.string.required));
+            et.setError(c.getResources().getString(R.string.required));
             return false;
         }else{
             return true;
         }
     }
+
 
 
 }

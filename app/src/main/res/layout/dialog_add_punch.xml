@@ -4,35 +4,87 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <CheckBox
-        android:id="@+id/isObligatory"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/obligatory" />
+        android:orientation="horizontal">
 
-    <CheckBox
-        android:id="@+id/isBeacon"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/beacon" />
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginRight="4dp"
+            android:layout_weight="1"
+            android:gravity="right|center_vertical"
+            android:text="@string/number"
+            android:textAlignment="textEnd" />
 
-    <EditText
-        android:id="@+id/number"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/number"
-        android:inputType="number"
-        android:maxLength="4"/>
+        <NumberPicker
+            android:id="@+id/punchNumPick"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"></NumberPicker>
 
-    <EditText
-        android:id="@+id/code"
-        android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginRight="4dp"
+            android:layout_weight="1"
+            android:gravity="right|center_vertical"
+            android:text="@string/code"
+            android:textAlignment="textEnd" />
+
+        <NumberPicker
+            android:id="@+id/punchCodePick"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"></NumberPicker>
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+    <RadioGroup
+        android:id="@+id/typePicker"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/code"
-        android:inputType="number"
-        android:maxLength="4"/>
+        android:layout_gravity="center"
+        android:layout_marginTop="16dp"
+        android:gravity="left"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/rb_basic_cp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:checked="true"
+            android:text="@string/controlpoint_type_0" />
+
+        <RadioButton
+            android:id="@+id/rb_beacon_cp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:text="@string/controlpoint_type_1" />
+
+        <RadioButton
+            android:id="@+id/rb_spec_cp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:text="@string/controlpoint_type_2" />
+
+    </RadioGroup>
 
 
 </LinearLayout>

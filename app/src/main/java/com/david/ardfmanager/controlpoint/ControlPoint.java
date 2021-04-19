@@ -10,22 +10,19 @@ public class ControlPoint implements Serializable {
 
         private int number;
         private int code;
-        private boolean obligatory;
-        private boolean beacon;
+        private int type; //0-classic, 1-beacon, 2-spectator
 
-        public ControlPoint(int number, int code, boolean obligatory, boolean beacon) {
+        public ControlPoint(int number, int code, int type) {
                 this.number = number;   //cislo
                 this.code = code;       //kod
-                this.obligatory = obligatory;   //povinna
-                this.beacon = beacon;   //majak
+                this.type = type;       //typ
         }
 
     public JSONObject ControlPointToJSON() throws JSONException {
         JSONObject json = new JSONObject();
         json.put("number", this.number);
         json.put("code", this.code);
-        json.put("isObligatory", this.obligatory);
-        json.put("isBeacon", this.beacon);
+        json.put("type", this.type);
         return json;
     }
 
@@ -45,20 +42,11 @@ public class ControlPoint implements Serializable {
                 this.code = code;
         }
 
-        public boolean isObligatory() {
-            return obligatory;
-        }
-
-        public void setObligatory(boolean obligatory) {
-            this.obligatory = obligatory;
-        }
-
-        public boolean isBeacon() {
-            return beacon;
-        }
-
-        public void setBeacon(boolean beacon) {
-            this.beacon = beacon;
-        }
-
+        public int getType() {
+        return type;
     }
+
+        public void setType(int type) {
+        this.type = type;
+    }
+}

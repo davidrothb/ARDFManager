@@ -77,6 +77,8 @@ public class EventsManagerActivity extends AppCompatActivity {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
+                }else{
+                    System.out.println("Filename not compatible for: " + filelist[i].getName());
                 }
             }
         }else{
@@ -170,9 +172,8 @@ public class EventsManagerActivity extends AppCompatActivity {
                         JSONObject jsonControlPoint = jsonControlPointsArray.getJSONObject(i);
                         int number = jsonControlPoint.getInt("number");
                         int code = jsonControlPoint.getInt("code");
-                        boolean isObligatory = jsonControlPoint.getBoolean("isObligatory");
-                        boolean isBeacon = jsonControlPoint.getBoolean("isBeacon");
-                        controlPointArrayList.add(new ControlPoint(number, code, isObligatory, isBeacon));
+                        int ctype = jsonControlPoint.getInt("type");
+                        controlPointArrayList.add(new ControlPoint(number, code, ctype));
                     }
                 }
                 trackArrayList.add(new Track(name, length, controlPointArrayList));
