@@ -36,13 +36,13 @@
     <string name="event_level_0">Národní</string>
     <string name="event_level_1">Regionální</string>
     <string name="event_level_2">Okresní</string>
-    <string name="event_level_3">Nešampionát?</string>
+    <string name="event_level_3">Nemistrovská</string>
     <string name="event_band_0">Kombinované</string>
-    <string name="event_band_1">80m</string>
-    <string name="event_band_2">2m</string>
+    <string name="event_band_1" translatable="false">80m</string>
+    <string name="event_band_2" translatable="false">2m</string>
     <string name="event_type_0">Klasický</string>
-    <string name="event_type_1">Foxoring</string>
-    <string name="event_type_2">Sprint</string>
+    <string name="event_type_1" translatable="false">Foxoring</string>
+    <string name="event_type_2" translatable="false">Sprint</string>
     <string name="event_type_3">Dlouhý</string>
     <string name="title">Název</string>
     <string name="level">Úroveň</string>
@@ -82,12 +82,12 @@
     </string-array>
 
     <string name="new_event">Nová akce</string>
-    <string name="storage_permission_not_granted">Oprávnění k přístupu do úložistě nebylo uděleno</string>
+    <string name="storage_permission_not_granted">Oprávnění k přístupu do úložistě nebylo uděleno!</string>
 
-    <string name="fullscreen_text">----</string>
-    <string name="punches_text"></string>
-    <string name="status_text">Status: disconnected</string>
-    <string name="status_text_wrapped"></string>
+    <string name="fullscreen_text" translatable="false">----</string>
+    <string name="punches_text" translatable="false"></string>
+    <string name="status_text" translatable="false">Status: disconnected</string>
+    <string name="status_text_wrapped" translatable="false"></string>
     <string name="ardf_running">ARFD Manager je spuštěn</string>
     <string name="last_read_si">Poslední vyčtený čip</string>
     <string name="si_disconnected">SI čtečka odpojena</string>

@@ -294,12 +294,11 @@ public class MainActivity extends AppCompatActivity {
                 return true;
 
             case R.id.trackMacroButton:
-                Track t1 = new Track("1", 25, new ArrayList<>());
-                Track t2 = new Track("2", 30, new ArrayList<>());
-                Track t3 = new Track("3", 35, new ArrayList<>());
-                event.addTrack(t1);
-                event.addTrack(t2);
-                event.addTrack(t3);
+
+
+                event.addTrack(new Track("D7", 0, new ArrayList<>()));
+                event.addTrack(new Track("D9", 30, new ArrayList<>()));
+                event.addTrack(new Track("D12", 35, new ArrayList<>()));
                 setAllAdaptersAndSave();
                 return true;
 
