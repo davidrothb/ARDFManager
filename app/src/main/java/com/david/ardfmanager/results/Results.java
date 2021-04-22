@@ -5,13 +5,13 @@ public class Results {
     ArrayList<Punch> punches - punches read from the SI  ......Last index should be finish. In case of no
 	finish, last control can be used, but the competitor should be DQ.
 
-    (time, code, type, valid)
-    (10:00:05; 41; CHK, 1)
-    (10:20:45; 42; CP, 0)
-    (10:25:45; 45; CP, 0)
-    (10:36:45; 43; CP, 0)
-    (10:45:25; 99; BCN, 0)
-    (10:46:10; 100; FNS, 1)
+    (time, code, type, status)
+    (10:00:05; 41; CHK)
+    (10:20:45; 42; CP, +)
+    (10:25:45; 45; CP, +)
+    (10:36:45; 43; CP, +)
+    (10:45:25; 99; BCN, +)
+    (10:46:10; 100; FNS)
 
 
     control point status

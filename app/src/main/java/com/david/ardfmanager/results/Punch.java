@@ -6,9 +6,8 @@ public class Punch {
 
     private Time punchTime;
     private int code;
-    private String type;
-
-    //CHK - erase check, ST - start, CP - control point, B - beacon, F - finish
+    private String type;   //CHK - erase check, ST - start, CP - control point, B - beacon, F - finish
+    private char CPStatus; // + valid control, - control already taken before, ? - invalid control for the category
 
 
     public Time getPunchTime() {
