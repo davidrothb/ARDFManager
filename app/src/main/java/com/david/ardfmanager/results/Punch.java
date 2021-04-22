@@ -20,7 +20,6 @@ public class Punch {
     }
 
 
-
     public int getCode() {
         return code;
     }
