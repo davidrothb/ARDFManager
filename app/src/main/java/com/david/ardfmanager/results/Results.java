@@ -6,7 +6,6 @@ public class Results {
 	finish, last control can be used, but the competitor should be DQ.
 
     (time, code, type, valid)
-
     (10:00:05; 41; CHK, 1)
     (10:20:45; 42; CP, 0)
     (10:25:45; 45; CP, 0)
@@ -23,7 +22,7 @@ public class Results {
 
 *//*
     private static int eventType;  // Get from the Category class 0 -classic, 1 - sprint, 2 - orienteering
-    private static int status = 0; // 0 - valid, 1 - after time limit, 2- DQ, 3 - not marked
+    private static int status = 0; // 0 - valid, 1 - after time limit, 2- DQ, 3 - not evaluated
 
     private static ArrayList<Punch> punches = new ArrayList<>();    //punches imported from readout
     private static ArrayList<Punch> processedPunches = new ArrayList<>();   // punches already processed
