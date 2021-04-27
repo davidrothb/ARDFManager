@@ -1,5 +1,7 @@
 package com.david.ardfmanager.results;
 
+import java.sql.Time;
+
 public class Results {
     /*
     ArrayList<Punch> punches - punches read from the SI  ......Last index should be finish. In case of no
@@ -126,6 +128,8 @@ public class Results {
 
 
 
+
+
     //this method calculates the number of all Foxes taken (including invalid)
     public static int allFoxNum(){
         int allFox;
@@ -184,5 +188,14 @@ public class Results {
 
 		Something that should be later used for printing via the bluetooth Printer
 	}}*/
+
+    public static Time runTime(Time startTime, Time finishTime){
+        if(finishTime!=null && finishTime.compareTo(startTime) > 0 ){
+            return new Time(finishTime.getTime() - startTime.getTime());
+        }
+        else{
+            return null;
+        }
+    }
 
 }
