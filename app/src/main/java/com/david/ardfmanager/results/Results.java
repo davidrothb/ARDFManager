@@ -1,18 +1,19 @@
 package com.david.ardfmanager.results;
 
+import java.sql.Time;
+
 public class Results {
     /*
     ArrayList<Punch> punches - punches read from the SI  ......Last index should be finish. In case of no
 	finish, last control can be used, but the competitor should be DQ.
 
-    (time, code, type, valid)
-
-    (10:00:05; 41; CHK, 1)
-    (10:20:45; 42; CP, 0)
-    (10:25:45; 45; CP, 0)
-    (10:36:45; 43; CP, 0)
-    (10:45:25; 99; BCN, 0)
-    (10:46:10; 100; FNS, 1)
+    (time, code, type, status)
+    (10:00:05; 41; CHK)
+    (10:20:45; 42; CP, +)
+    (10:25:45; 45; CP, +)
+    (10:36:45; 43; CP, +)
+    (10:45:25; 99; BCN, +)
+    (10:46:10; 100; FNS)
 
 
     control point status
@@ -23,7 +24,7 @@ public class Results {
 
 *//*
     private static int eventType;  // Get from the Category class 0 -classic, 1 - sprint, 2 - orienteering
-    private static int status = 0; // 0 - valid, 1 - after time limit, 2- DQ, 3 - not marked
+    private static int status = 0; // 0 - valid, 1 - after time limit, 2- DQ, 3 - not evaluated
 
     private static ArrayList<Punch> punches = new ArrayList<>();    //punches imported from readout
     private static ArrayList<Punch> processedPunches = new ArrayList<>();   // punches already processed
@@ -185,5 +186,14 @@ public class Results {
 
 		Something that should be later used for printing via the bluetooth Printer
 	}}*/
+
+    public static Time runTime(Time startTime, Time finishTime){
+        if(finishTime!=null && finishTime.compareTo(startTime) > 0 ){
+            return new Time(finishTime.getTime() - startTime.getTime());
+        }
+        else{
+            return null;
+        }
+    }
 
 }
