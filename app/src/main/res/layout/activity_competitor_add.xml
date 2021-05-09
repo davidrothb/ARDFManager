@@ -71,6 +71,14 @@
             android:hint="@string/year_of_birth"
             android:inputType="number" />
 
+        <NumberPicker
+            android:id="@+id/minAgeNumPick"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="horizontal"></NumberPicker>
+
         <EditText
             android:id="@+id/countryEditText"
             android:layout_width="match_parent"
@@ -90,16 +98,9 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:ems="10"
-            android:hint="@string/index"
+            android:hint="@string/index_club"
             android:inputType="textPersonName" />
 
-        <Spinner
-            android:id="@+id/clubSpinner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp" />
 
         <EditText
             android:id="@+id/startNumberNumber"

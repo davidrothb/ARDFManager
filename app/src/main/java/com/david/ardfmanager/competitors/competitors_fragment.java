@@ -20,8 +20,10 @@ import android.widget.Switch;
 
 import com.david.ardfmanager.MainActivity;
 import com.david.ardfmanager.R;
+import com.david.ardfmanager.category.Category;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 
 /**
@@ -101,6 +103,7 @@ public class competitors_fragment extends Fragment {
     }
 
     public static void showCompetitorAddDialog(Context c, Competitor competitor) {
+        //ToDo: misto planet kategorie,
 
         ViewGroup viewGroup = view.findViewById(android.R.id.content);
         View dialogView = LayoutInflater.from(c).inflate(R.layout.activity_competitor_add, viewGroup, false);
@@ -128,7 +131,6 @@ public class competitors_fragment extends Fragment {
         EditText startTimeEditText = dialogView.findViewById(R.id.startTimeEditText);
 
         Spinner categorySpinner = dialogView.findViewById(R.id.categorySpinner);
-        Spinner clubSpinner = dialogView.findViewById(R.id.clubSpinner);
 
         Switch genderSwitch = dialogView.findViewById(R.id.genderSwitch);
         Button confButt = dialogView.findViewById(R.id.confButton);
@@ -136,6 +138,16 @@ public class competitors_fragment extends Fragment {
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(c, R.array.categories, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         categorySpinner.setAdapter(adapter);
+
+        ArrayList<String> spinnerStringCategories = new ArrayList<>();
+        spinnerStringCategories.add(c.getResources().getString(R.string.select_category));
+        for(Category cat : MainActivity.event.getCategoriesList()){
+            spinnerStringCategories.add(cat.getName());
+        }
+        ArrayAdapter<String> spinnerCategoriesAdapter  = new ArrayAdapter<String>(c, android.R.layout.simple_spinner_item, spinnerStringCategories);
+
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        categorySpinner.setAdapter(spinnerCategoriesAdapter);
 
         genderSwitch.setOnClickListener(new View.OnClickListener() {
             @Override

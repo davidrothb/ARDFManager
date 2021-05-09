@@ -97,7 +97,7 @@
     <string name="call_sign">Volačka</string>
     <string name="country">Země</string>
     <string name="start_number">Startovní číslo</string>
-    <string name="index" translatable="false">Index</string>
+    <string name="index_club">Index/Klub</string>
     <string name="start_time">Startovní čas</string>
     <string name="tag_number">Číslo čipu</string>
     <string name="not_in_database">Není v databázi</string>
@@ -113,5 +113,7 @@
     <string name="max_birthyear">Maximální\nročník</string>
     <string name="title_categories">Kategorie</string>
     <string name="max_min_birthyear">Min/max ročník</string>
+    <string name="edit_category">Upravit kategorii</string>
+    <string name="select_category">Vyberte kategorii</string>
 
 </resources>

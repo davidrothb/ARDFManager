@@ -116,7 +116,11 @@ public class categories_fragment extends Fragment {
         View dialogView = LayoutInflater.from(c).inflate(R.layout.dialog_category_add, viewGroup, false);    //set layout to view
 
         AlertDialog.Builder builder = new AlertDialog.Builder(c);
-        builder.setTitle(R.string.add_category);
+        if(category != null){
+            builder.setTitle(R.string.edit_category);
+        }else {
+            builder.setTitle(R.string.add_category);
+        }
         builder.setView(dialogView);
         AlertDialog alertDialog = builder.create();
         alertDialog.show(); //build and show the dialog
@@ -153,6 +157,13 @@ public class categories_fragment extends Fragment {
         minAgeNumPick.setValue(minAgeNumPick.getMaxValue()-10);
         maxAgeNumPick.setValue(maxAgeNumPick.getMaxValue()-10);
 
+        maxAgeNumPick.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker numberPicker, int i, int i1) {
+                minAgeNumPick.setMaxValue(maxAgeNumPick.getValue()-1);
+            }
+        });
+
         if(category != null){ //if valid track is in function arguments
             nameEditText.setText(category.getName());
             minAgeNumPick.setValue(category.getMinAge());
@@ -168,7 +179,6 @@ public class categories_fragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if (MainActivity.checkFilled(c, nameEditText) && MainActivity.checkFilled(c, lengthEditText)) {
-                    if (maxAgeNumPick.getValue() > minAgeNumPick.getValue()) {
                         Category newCategory = new Category(
                                 nameEditText.getText().toString(),
                                 minAgeNumPick.getValue(),
@@ -184,9 +194,6 @@ public class categories_fragment extends Fragment {
 
                         MainActivity.setAllAdaptersAndSave();
                         alertDialog.dismiss();
-                    }else{
-                        Toast.makeText(c, "More nesedi rocniky", Toast.LENGTH_SHORT).show();
-                    }
                 }
             }
         });

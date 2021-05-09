@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
     BottomNavigationView navView;
 
     public static Calendar calendar = Calendar.getInstance();
-    public static int MIN_BIRTH_YEAR = 1950;
+    public static int MIN_BIRTH_YEAR = 1920;
     public static int MAX_BIRTH_YEAR = calendar.get(Calendar.YEAR);
 
 
