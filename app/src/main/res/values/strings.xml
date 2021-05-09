@@ -6,8 +6,6 @@
     <string name="title_results">Výsledky</string>
     <string name="confirm_button">Potvrdit</string>
     <string name="name">Jméno</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="add_track">Přidat trať</string>
     <string name="global_settings">Nastavení</string>
@@ -114,5 +112,10 @@
     <string name="controlpoint_type_2">Divácká kontrola</string>
     <string name="spectator">Divácká</string>
     <string name="control_point">Kontrola</string>
+    <string name="add_category">Přidat kategorii</string>
+    <string name="min_birthyear">Minimální\nročník</string>
+    <string name="max_birthyear">Maximální\nročník</string>
+    <string name="title_categories">Kategorie</string>
+    <string name="max_min_birthyear">Min/max ročník</string>
 
 </resources>

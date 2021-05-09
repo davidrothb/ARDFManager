@@ -1,4 +1,4 @@
-package com.david.ardfmanager.tracks;
+package com.david.ardfmanager.category;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -15,13 +15,12 @@ import android.view.WindowManager;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.NumberPicker;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import com.david.ardfmanager.DecimalDigitsInputFilter;
 import com.david.ardfmanager.MainActivity;
@@ -36,10 +35,10 @@ import java.util.Comparator;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link tracks_fragment#newInstance} factory method to
+ * Use the {@link categories_fragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class tracks_fragment extends Fragment {
+public class categories_fragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -55,12 +54,13 @@ public class tracks_fragment extends Fragment {
     //track add dialog ui
     static Button confButton, addPunchButton;
     static EditText nameEditText, lengthEditText;
+    static NumberPicker minAgeNumPick, maxAgeNumPick;
     static ListView cplv;
     private static ArrayList<ControlPoint> controlPointsList;
     private static ControlPointAdapter controlPointAdapter;
 
 
-    public tracks_fragment() {
+    public categories_fragment() {
         // Required empty public constructor
     }
 
@@ -73,8 +73,8 @@ public class tracks_fragment extends Fragment {
      * @return A new instance of fragment tracks.
      */
     // TODO: Rename and change types and number of parameters
-    public static tracks_fragment newInstance(String param1, String param2) {
-        tracks_fragment fragment = new tracks_fragment();
+    public static categories_fragment newInstance(String param1, String param2) {
+        categories_fragment fragment = new categories_fragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -95,29 +95,28 @@ public class tracks_fragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        /*View*/ view = inflater.inflate(R.layout.fragment_tracks, container, false);
+        /*View*/ view = inflater.inflate(R.layout.fragment_categories, container, false);
         //return inflater.inflate(R.layout.fragment_tracks, container, false);
         mListView = (ListView) view.findViewById(R.id.tracksListView);
         mListView.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
-        tracks_fragment.mListView.setAdapter(MainActivity.tracksListAdapter);
+        categories_fragment.mListView.setAdapter(MainActivity.categoryListAdapter);
 
-        mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                showTrackAddDialog(getContext(), MainActivity.event.getTracksList().get(i));
-                return false;
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                showCategoryAddDialog(getContext(), MainActivity.event.getCategoriesList().get(i));
             }
         });
 
         return view;
     }
 
-    public static void showTrackAddDialog(Context c, Track track){
+    public static void showCategoryAddDialog(Context c, Category category){
         ViewGroup viewGroup = view.findViewById(android.R.id.content);
-        View dialogView = LayoutInflater.from(c).inflate(R.layout.activity_track_add, viewGroup, false);    //set layout to view
+        View dialogView = LayoutInflater.from(c).inflate(R.layout.dialog_category_add, viewGroup, false);    //set layout to view
 
         AlertDialog.Builder builder = new AlertDialog.Builder(c);
-        builder.setTitle(R.string.add_track);
+        builder.setTitle(R.string.add_category);
         builder.setView(dialogView);
         AlertDialog alertDialog = builder.create();
         alertDialog.show(); //build and show the dialog
@@ -134,6 +133,9 @@ public class tracks_fragment extends Fragment {
         nameEditText = (EditText) dialogView.findViewById(R.id.nameEditText);
         lengthEditText = (EditText) dialogView.findViewById(R.id.lengthEditText);
         lengthEditText.setFilters(new InputFilter[] {new DecimalDigitsInputFilter(5,2)});
+        minAgeNumPick = dialogView.findViewById(R.id.minAgeNumPick);
+        maxAgeNumPick = dialogView.findViewById(R.id.maxAgeNumPick);
+
         cplv = (ListView) dialogView.findViewById(R.id.control_points_lv);
         controlPointsList = new ArrayList<ControlPoint>();
         controlPointAdapter = new ControlPointAdapter(c, R.layout.controlpoint_view_layout, controlPointsList);
@@ -142,12 +144,23 @@ public class tracks_fragment extends Fragment {
         TextView emptyText = (TextView)dialogView.findViewById(R.id.empty_list_item);
         cplv.setEmptyView(emptyText);*/
 
-        if(track != null){ //if valid track is in function arguments
-            nameEditText.setText(track.getName());
-            lengthEditText.setText(String.valueOf(track.getLength()));
-            controlPointsList = track.getControlPoints();
-            ControlPoint casd = new ControlPoint(1,2,0);
-            controlPointsList.add(casd);
+        minAgeNumPick.setMinValue(MainActivity.MIN_BIRTH_YEAR);
+        minAgeNumPick.setMaxValue(MainActivity.MAX_BIRTH_YEAR);
+
+        maxAgeNumPick.setMinValue(MainActivity.MIN_BIRTH_YEAR);
+        maxAgeNumPick.setMaxValue(MainActivity.MAX_BIRTH_YEAR);
+
+        minAgeNumPick.setValue(minAgeNumPick.getMaxValue()-10);
+        maxAgeNumPick.setValue(maxAgeNumPick.getMaxValue()-10);
+
+        if(category != null){ //if valid track is in function arguments
+            nameEditText.setText(category.getName());
+            minAgeNumPick.setValue(category.getMinAge());
+            maxAgeNumPick.setValue(category.getMaxAge());
+            lengthEditText.setText(String.valueOf(category.getLength()));
+            for(ControlPoint cp : category.getControlPoints()){
+                controlPointsList.add(cp);
+            }
             sortAndSet();
         }
 
@@ -155,19 +168,25 @@ public class tracks_fragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if (MainActivity.checkFilled(c, nameEditText) && MainActivity.checkFilled(c, lengthEditText)) {
-                    if(track == null){
-                        Track t = new Track(
+                    if (maxAgeNumPick.getValue() > minAgeNumPick.getValue()) {
+                        Category newCategory = new Category(
                                 nameEditText.getText().toString(),
+                                minAgeNumPick.getValue(),
+                                maxAgeNumPick.getValue(),
                                 Float.parseFloat(lengthEditText.getText().toString()),
                                 controlPointsList);
-                        MainActivity.event.addTrack(t);
+
+                        if (category == null) { //if the argument is not null, it was called from edit dialog and category is edited, else added
+                            MainActivity.event.addCategory(newCategory);
+                        } else {
+                            MainActivity.event.editCategory(MainActivity.event.getCategoriesList().get(MainActivity.event.getCategoriesList().indexOf(category)), newCategory);
+                        }
+
+                        MainActivity.setAllAdaptersAndSave();
+                        alertDialog.dismiss();
                     }else{
-                        MainActivity.event.getTracksList().get(MainActivity.event.getTracksList().indexOf(track)).setName(nameEditText.getText().toString());
-                        MainActivity.event.getTracksList().get(MainActivity.event.getTracksList().indexOf(track)).setLength(Float.parseFloat(lengthEditText.getText().toString()));
-                        MainActivity.event.getTracksList().get(MainActivity.event.getTracksList().indexOf(track)).setControlPoints(controlPointsList);
+                        Toast.makeText(c, "More nesedi rocniky", Toast.LENGTH_SHORT).show();
                     }
-                    MainActivity.setAllAdaptersAndSave();
-                    alertDialog.dismiss();
                 }
             }
         });
@@ -182,8 +201,8 @@ public class tracks_fragment extends Fragment {
                 builder.setView(customLayout);
 
 
-                final NumberPicker punchNumPick = customLayout.findViewById(R.id.punchNumPick);
-                final NumberPicker punchCodePick = customLayout.findViewById(R.id.punchCodePick);
+                final NumberPicker punchNumPick = customLayout.findViewById(R.id.minAgeNumPick);
+                final NumberPicker punchCodePick = customLayout.findViewById(R.id.maxAgeNumPick);
                 final RadioGroup typePicker = customLayout.findViewById(R.id.typePicker);
                 final RadioButton rb_basic_cp = customLayout.findViewById(R.id.rb_basic_cp);
                 final RadioButton rb_spec_cp = customLayout.findViewById(R.id.rb_spec_cp);
