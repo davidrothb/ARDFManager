@@ -16,7 +16,7 @@ We welcome any ideas for improvement.
 Java
 
 ## Credits
-*Readout: [SI Playground](https://github.com/svenstorp/SIPlayground)
-*Logo: [Logomakr](https://logomakr.com/)
+* Readout: [SI Playground](https://github.com/svenstorp/SIPlayground)
+* Logo: [Logomakr](https://logomakr.com/)
 ## License
 
