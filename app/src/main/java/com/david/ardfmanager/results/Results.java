@@ -1,8 +1,15 @@
 package com.david.ardfmanager.results;
 
+import com.david.ardfmanager.controlpoint.ControlPoint;
+
 import java.sql.Time;
+import java.util.ArrayList;
 
 public class Results {
+
+
+    // ALL TO BE UPDATED!!! - dynamic reference to the CP ArrayList and to the readout
+
     /*
     ArrayList<Punch> punches - punches read from the SI  ......Last index should be finish. In case of no
 	finish, last control can be used, but the competitor should be DQ.
@@ -44,12 +51,6 @@ public class Results {
 
 
 
-    public static void handleClassics(){
-        //alespon 1 kontrola, majak, finish,
-        status = (validFoxNumber >= 2);
-
-        setTotalFoxNum(allFoxNum());
-    }
 
     public static void handleSprint(){
     }
@@ -64,30 +65,7 @@ public class Results {
 
 
 
-    public static void setTimes(){
-        competitor.setCheckTime(getTimefromSI(0));
-        competitor.setStartTime(getStartTime(1));
-        competitor.setFinishTime(getTimeFromSI(2));
 
-    }
-
-    public static Time getStartTime(){
-
-        //checks if the competitor has a time in his punches
-        if(getTimeFromSI(1)!=null(){
-
-            return getTimefromSI(1)
-        }
-
-       else if (Competitor.getStartTime()!=null){
-
-            return competitor.getStartTime();
-
-        }
-
-        else{
-            //Error => pop up with no time anywhere
-        }
 
     }
 
@@ -158,26 +136,7 @@ public class Results {
 
 
 /*
-    public static void main(String[] args){
-        setTimes();
 
-        switch(eventType) {
-
-            case 0:
-                handleClassics()
-                break;
-
-            case 1:
-                handleSprint()
-                break;
-
-            case 2:
-                handleOrienteering()
-                break;
-
-        }
-
-    }
 
 
 	/*public static String printTextOutput(ArrayList<Punches> punches ){
@@ -187,13 +146,89 @@ public class Results {
 		Something that should be later used for printing via the bluetooth Printer
 	}}*/
 
-    public static Time runTime(Time startTime, Time finishTime){
-        if(finishTime!=null && finishTime.compareTo(startTime) > 0 ){
+    ArrayList<Punch> punches = new ArrayList<Punch>(); //Competitor punches
+    ArrayList<ControlPoint> controlPoints = new ArrayList<ControlPoint>(); //Control points for the category
+    Time startTime;
+    Time finishTime;
+    String status;
+
+    private static int eventType;
+
+
+    //Time section
+
+
+    public static Time runTime(Time startTime, Time finishTime) {
+        if (finishTime != null && finishTime.compareTo(startTime) > 0) {
             return new Time(finishTime.getTime() - startTime.getTime());
-        }
-        else{
+        } else {
             return null;
         }
     }
 
-}
+    //Handle classics
+    public static void handleClassics(ArrayList<Punch> punches, ArrayList<ControlPoint> controlPoints) {
+        //alespon 1 kontrola, majak, finish,
+
+        /*Projet všechny kontroly v listu závodníka, porovnat je
+        * 1) vzít kontrolu - ověřit duplicitu
+        * 2) změnit status
+        *   */
+
+        for(int i=0; i<punches.size();i++){
+            for(int j =0; j<controlPoints.size();j++){
+                if(controlPoints.get(j).getCode()==punches.get(i).getCode()){
+
+                punches.get(i).setCPStatus('+');
+
+                }
+                /*else if(){
+                    punches.get(i).setCPStatus('?');
+                                    }*/
+                else{
+                    punches.get(i).setCPStatus('-');
+
+                }
+
+
+        }
+
+    }
+    }
+
+    //Handling Sprint event
+    public static void handleCSprint() {
+        //alespoň jedna kontrola na pomalém, S, kontrola na rychlém, maják
+
+    }
+
+    //Handling Orienteering event
+    public static void handleOrienteering() {
+        //alespon 1 kontrola, majak, finish,
+
+    }
+
+    //Main part
+    public static void main(String[] args) {
+        //setTimes();
+
+       /* switch (eventType) {
+
+            case 0:
+                handleClassics();
+                break;
+
+        case 1:
+            handleSprint()
+            break;
+
+        case 2:
+            handleOrienteering()
+            break;
+
+    }*/
+
+        }
+
+
+    }
