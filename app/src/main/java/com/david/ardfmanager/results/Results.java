@@ -46,34 +46,6 @@ public class Results {
         validCP = MainActivity.event.getTrack()
     }
 
-
-
-
-
-
-
-    public static void handleSprint(){
-    }
-
-
-    public static boolean handleOrienteering(){
-        return false;
-    }
-
-
-
-
-
-
-
-
-    }
-
-
-
-
-
-
     //this method returns time from SI
     public static Time getTimefromSI(int type){
 
@@ -106,38 +78,6 @@ public class Results {
 
 
 
-    //this method calculates the number of all Foxes taken (including invalid)
-    public static int allFoxNum(){
-        int allFox;
-
-        for(s:punches){
-            if(punches.type.get(s).equals("CP"){
-                allFox++;
-            }
-
-            return allFox;
-        }
-    }
-
-
-    //the method calculates the number of VALID foxes for the category
-    public static int validFoxNumber(){
-        int validFox = 0;
-
-
-        return validFox;
-    }
-
-
-
-
-}
-
-
-
-/*
-
-
 
 	/*public static String printTextOutput(ArrayList<Punches> punches ){
 		String textOutput ="";
@@ -147,18 +87,45 @@ public class Results {
 	}}*/
 
     ArrayList<Punch> punches = new ArrayList<Punch>(); //Competitor punches
+
+
     ArrayList<ControlPoint> controlPoints = new ArrayList<ControlPoint>(); //Control points for the category
     Time startTime;
     Time finishTime;
     String status;
 
-    private static int eventType;
+    int allFoxNum;
+    int validFoxNum;
+
+
+    private int eventType;
 
 
     //Time section
 
+    //This method is responsible for setting the correct times of check, start, and finish
+    public void setTimes() {
 
-    public static Time runTime(Time startTime, Time finishTime) {
+
+    }
+
+
+    public static Time setStartTime() {
+        return null;
+    }
+
+    // This method sets the finish Time of the competitor to the value read from the SI
+    public Time setFinishTime(ArrayList<Punch> punches) {
+
+        if (punches.get(punches.size() - 1).getType().equals("F")) {
+            return punches.get(punches.size() - 1).getPunchTime();
+        } else {
+            return null; //Error - the competitor did not punch finish/fail of SI
+        }
+    }
+
+
+    public Time calculateRunTime(Time startTime, Time finishTime) {
         if (finishTime != null && finishTime.compareTo(startTime) > 0) {
             return new Time(finishTime.getTime() - startTime.getTime());
         } else {
@@ -167,33 +134,12 @@ public class Results {
     }
 
     //Handle classics
-    public static void handleClassics(ArrayList<Punch> punches, ArrayList<ControlPoint> controlPoints) {
+    public void handleClassics(ArrayList<Punch> punches, ArrayList<ControlPoint> controlPoints) {
         //alespon 1 kontrola, majak, finish,
+        controlStatusHandler();
+        allFoxNum();
+        validFoxNumber();
 
-        /*Projet všechny kontroly v listu závodníka, porovnat je
-        * 1) vzít kontrolu - ověřit duplicitu
-        * 2) změnit status
-        *   */
-
-        for(int i=0; i<punches.size();i++){
-            for(int j =0; j<controlPoints.size();j++){
-                if(controlPoints.get(j).getCode()==punches.get(i).getCode()){
-
-                punches.get(i).setCPStatus('+');
-
-                }
-                /*else if(){
-                    punches.get(i).setCPStatus('?');
-                                    }*/
-                else{
-                    punches.get(i).setCPStatus('-');
-
-                }
-
-
-        }
-
-    }
     }
 
     //Handling Sprint event
@@ -206,6 +152,98 @@ public class Results {
     public static void handleOrienteering() {
         //alespon 1 kontrola, majak, finish,
 
+    }
+
+    // returns the number of Foxes taken, no matter if correct or not
+    public void allFoxNum() {
+        ArrayList<Punch> punches = this.punches;
+        int allFox = 0;
+
+        for (int i = 0; i < punches.size(); i++) {
+            if (punches.get(i).getType().equals("CP") || punches.get(i).getType().equals("B")) {
+                allFox++;
+            }
+        }
+        this.allFoxNum = allFox;
+    }
+
+    //the method calculates the number of VALID foxes for the category - valid fox with + in status
+    public void validFoxNumber() {
+        ArrayList<Punch> punches = this.punches;
+        int validFox = 0;
+
+        for (int i = 0; i < punches.size(); i++) {
+            if (punches.get(i).getCPStatus() == '+') {
+                validFox++;
+            }
+
+        }
+
+        //checking if the beacon has been punched as a last CP
+
+        if (punches.get(punches.size() - 1).getType().equals('F') && !punches.get(punches.size() - 2).getType().equals("B")) {
+
+            validFox--;
+        }
+        this.validFoxNum = validFox;
+
+    }
+
+
+    public void controlStatusHandler() {
+        /*Projet všechny kontroly v listu závodníka, porovnat je
+         * 1) vzít kontrolu - ověřit duplicitu
+         * 2) změnit status
+         *   */
+        ArrayList<Punch> punches = this.punches;
+        ArrayList<ControlPoint> controlPoints = this.controlPoints;
+
+
+        for (int i = 0; i < punches.size(); i++) {
+            for (int j = 0; j < controlPoints.size(); j++) {
+                if (controlPoints.get(j).getCode() == punches.get(i).getCode() && punches.get(i).getType().equals("CP")) {
+
+                    punches.get(i).setCPStatus('+');
+
+                } else {
+                    punches.get(i).setCPStatus('?');
+
+                }
+
+            }
+            /* Need to solve the duplicate fox situation !!!!!!!
+            * Multiple control needs to be marked with minus
+            * */
+        }
+    }
+
+
+    public boolean eligible (int eventType){
+        boolean eligible=true;
+
+        switch (eventType){
+
+            case 0: //classics
+                if(this.validFoxNum<2){
+                    eligible = false;
+            }
+
+            case 1: //foxoring
+                ;
+
+            case 2: //orienteering
+                ;
+
+        }
+
+
+        return eligible;
+
+    }
+
+    public void sortResults(){
+
+        
     }
 
     //Main part
@@ -228,7 +266,7 @@ public class Results {
 
     }*/
 
-        }
-
-
     }
+
+
+}
