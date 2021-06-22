@@ -66,4 +66,12 @@
     <string name="controlpoint_type_2">Spectators control point</string>
     <string name="spectator">"Spectators "</string>
     <string name="control_point">Control point</string>
+    <string name="add_category">Add category</string>
+    <string name="min_birthyear">Minimal birthyear</string>
+    <string name="max_birthyear">Maximal birthyear</string>
+    <string name="title_categories">Categories</string>
+    <string name="max_min_birthyear">Min/max birthyear</string>
+    <string name="edit_category">Edit category</string>
+    <string name="index_club">Index/Club</string>
+    <string name="select_category">Select category</string>
 </resources>

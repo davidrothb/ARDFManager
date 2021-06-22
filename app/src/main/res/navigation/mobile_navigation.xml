@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/tracks">
+    app:startDestination="@id/categories">
     <fragment
-        android:id="@+id/tracks"
-        android:name="com.david.ardfmanager.tracks.tracks_fragment"
+        android:id="@+id/categories"
+        android:name="com.david.ardfmanager.category.categories_fragment"
         android:label="@string/title_tracks"
-        tools:layout="@layout/fragment_tracks" />
+        tools:layout="@layout/fragment_categories" />
     <fragment
         android:id="@+id/competitors"
         android:name="com.david.ardfmanager.competitors.competitors_fragment"

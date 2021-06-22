@@ -9,6 +9,7 @@ public class Punch {
     private String type;   //CHK - erase check, ST - start, CP - control point, B - beacon, F - finish
     private char CPStatus; // + valid control, - control already taken before, ? - invalid control for the category
 
+
    public Punch(Time punchTime, int code, String type, char CPStatus) {
         this.punchTime = punchTime;
         this.code = code;

@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -19,9 +20,9 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.david.ardfmanager.MainActivity;
 import com.david.ardfmanager.R;
+import com.david.ardfmanager.category.Category;
 import com.david.ardfmanager.competitors.Competitor;
 import com.david.ardfmanager.controlpoint.ControlPoint;
-import com.david.ardfmanager.tracks.Track;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONArray;
@@ -149,34 +150,37 @@ public class EventsManagerActivity extends AppCompatActivity {
 
     public Event eventFromFile(String filename) throws JSONException, IOException {
         JSONObject jsonEvent = jsonFromFile(path + "/" + filename);
-
+        Log.d("JSONevent", jsonEvent.toString());
         JSONObject jsonProperties = jsonEvent.getJSONObject("properties");
         String title = jsonProperties.getString("title");
         int level = jsonProperties.getInt("level");
         int band = jsonProperties.getInt("band");
         int type = jsonProperties.getInt("type");
-        ArrayList<Track> trackArrayList = new ArrayList<>();
+        ArrayList<Category> categoryArrayList = new ArrayList<>();
         ArrayList<Competitor> competitorArrayList = new ArrayList<>();
 
-        if(jsonEvent.has("tracks")){
-            JSONArray jsonTracksArray = jsonEvent.getJSONArray("tracks");
-            for (int i = 0; i < jsonTracksArray.length(); i++) {
-                JSONObject jsonTrack = jsonTracksArray.getJSONObject(i);
-                String name = jsonTrack.getString("name");
-                Float length = Float.parseFloat(jsonTrack.getString("length"));
+        if(jsonEvent.has("categories")){
+            JSONArray jsonCategoryArray = jsonEvent.getJSONArray("categories");
+            for (int i = 0; i < jsonCategoryArray.length(); i++) {
+                JSONObject jsonCategory = jsonCategoryArray.getJSONObject(i);
+                String name = jsonCategory.getString("name");
+                int minAge = jsonCategory.getInt("minAge");
+                int maxAge = jsonCategory.getInt("maxAge");
+                Float length = Float.parseFloat(jsonCategory.getString("length"));
                 ArrayList<ControlPoint> controlPointArrayList = new ArrayList<>();
 
-                if(jsonTrack.has("controlPoints")) {
-                    JSONArray jsonControlPointsArray = jsonTrack.getJSONArray("controlPoints");
+                if(jsonCategory.has("controlPoints")) {
+                    JSONArray jsonControlPointsArray = jsonCategory.getJSONArray("controlPoints");
                     for (int y = 0; y < jsonControlPointsArray.length(); y++) {
-                        JSONObject jsonControlPoint = jsonControlPointsArray.getJSONObject(i);
+                        JSONObject jsonControlPoint = jsonControlPointsArray.getJSONObject(y);
                         int number = jsonControlPoint.getInt("number");
                         int code = jsonControlPoint.getInt("code");
                         int ctype = jsonControlPoint.getInt("type");
                         controlPointArrayList.add(new ControlPoint(number, code, ctype));
                     }
                 }
-                trackArrayList.add(new Track(name, length, controlPointArrayList));
+
+                categoryArrayList.add(new Category(name, minAge, maxAge, length, controlPointArrayList));
             }
         }
 
@@ -185,13 +189,13 @@ public class EventsManagerActivity extends AppCompatActivity {
             JSONArray jsonCompetitorsArray = jsonEvent.getJSONArray("competitors");
         }
 
-        return new Event(title, level, band, type, trackArrayList, competitorArrayList);
+        return new Event(title, level, band, type, categoryArrayList, competitorArrayList);
     }
 
     public static JSONObject jsonFromEvent(Event e) throws JSONException {
         JSONArray jsonTracksArray = new JSONArray();
-        for (int i = 0; i < e.getTracksList().size(); i++) {
-            jsonTracksArray.put(e.getTracksList().get(i).trackToJSON());
+        for (int i = 0; i < e.getCategoriesList().size(); i++) {
+            jsonTracksArray.put(e.getCategoriesList().get(i).categoryToJSON());
         }
 
         JSONArray jsonCompetitorsArray = new JSONArray();
@@ -208,7 +212,7 @@ public class EventsManagerActivity extends AppCompatActivity {
         jsonProperties.put("type", e.getType());
 
         jsonEvent.put("properties", jsonProperties);
-        jsonEvent.put("tracks", jsonTracksArray);
+        jsonEvent.put("categories", jsonTracksArray);
         jsonEvent.put("competitors", jsonCompetitorsArray);
         return jsonEvent;
     }
@@ -219,12 +223,14 @@ public class EventsManagerActivity extends AppCompatActivity {
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
             bufferedWriter.write(jsonFromEvent(e).toString());
             bufferedWriter.close();
+            System.out.println("Event uspesne ulozen!");
         } catch (IOException ioException) {
             ioException.printStackTrace();
+            System.out.println("Posralo se!");
         } catch (JSONException jsonException) {
             jsonException.printStackTrace();
+            System.out.println("Posralo se!");
         }
-
     }
 
     private JSONObject jsonFromFile(String path) throws IOException, JSONException {

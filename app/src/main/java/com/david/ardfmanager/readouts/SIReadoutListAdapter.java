@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.david.ardfmanager.MainActivity;
 import com.david.ardfmanager.R;
 import com.david.ardfmanager.competitors.Competitor;
+import com.david.ardfmanager.competitors.competitors_fragment;
 import com.david.ardfmanager.controlpoint.ControlPoint;
 
 import java.text.DecimalFormat;
@@ -56,7 +57,7 @@ public class SIReadoutListAdapter extends ArrayAdapter<SIReadout> {
 
 
 
-        Competitor competitor = MainActivity.findCompBySI(cardId);
+        Competitor competitor = competitors_fragment.findCompBySI(cardId);
         if(competitor != null){
             nameTextView.setText(competitor.getFullName());
         }else{
