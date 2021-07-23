@@ -1,5 +1,6 @@
 package com.david.ardfmanager.results;
 
+import com.david.ardfmanager.competitors.Competitor;
 import com.david.ardfmanager.controlpoint.ControlPoint;
 
 import java.sql.Time;
@@ -136,7 +137,7 @@ public class Results {
     //Handle classics
     public void handleClassics(ArrayList<Punch> punches, ArrayList<ControlPoint> controlPoints) {
         //alespon 1 kontrola, majak, finish,
-        controlStatusHandler();
+        classicsCPStatus();
         allFoxNum();
         validFoxNumber();
 
@@ -149,8 +150,8 @@ public class Results {
     }
 
     //Handling Orienteering event
-    public static void handleOrienteering() {
-        //alespon 1 kontrola, majak, finish,
+    public void handleOrienteering() {
+
 
     }
 
@@ -190,7 +191,7 @@ public class Results {
     }
 
 
-    public void controlStatusHandler() {
+    public void classicsCPStatus() {
         /*Projet všechny kontroly v listu závodníka, porovnat je
          * 1) vzít kontrolu - ověřit duplicitu
          * 2) změnit status
@@ -212,21 +213,37 @@ public class Results {
 
             }
             /* Need to solve the duplicate fox situation !!!!!!!
-            * Multiple control needs to be marked with minus
-            * */
+             * Multiple control needs to be marked with minus
+             * */
         }
     }
 
+    public void orienteeringCPStatus() {
 
-    public boolean eligible (int eventType){
-        boolean eligible=true;
+        // checks if the punches codes are the same as the Control reference list
+        ArrayList<Punch> punches = this.punches;
+        ArrayList<ControlPoint> controlPoints = this.controlPoints;
 
-        switch (eventType){
+        for (int i = 0; i < punches.size(); i++) {
+            if (punches.get(i).getCode() == controlPoints.get(i).getCode()) {
+                punches.get(i).setCPStatus('+');
+            } else {
+                punches.get(i).setCPStatus('-');
+            }
+        }
+
+    }
+
+
+    public boolean eligible(int eventType) {
+        boolean eligible = true;
+
+        switch (eventType) {
 
             case 0: //classics
-                if(this.validFoxNum<2){
+                if (this.validFoxNum < 2) {
                     eligible = false;
-            }
+                }
 
             case 1: //foxoring
                 ;
@@ -241,9 +258,9 @@ public class Results {
 
     }
 
-    public void sortResults(){
+    public void sortResults(ArrayList<Competitor> competitors) {
 
-        
+
     }
 
     //Main part
