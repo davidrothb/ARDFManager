@@ -104,35 +104,12 @@ public class Results {
 
     //Time section
 
-    //This method is responsible for setting the correct times of check, start, and finish
-    public void setTimes() {
 
 
-    }
 
 
-    public static Time setStartTime() {
-        return null;
-    }
-
-    // This method sets the finish Time of the competitor to the value read from the SI
-    public Time setFinishTime(ArrayList<Punch> punches) {
-
-        if (punches.get(punches.size() - 1).getType().equals("F")) {
-            return punches.get(punches.size() - 1).getPunchTime();
-        } else {
-            return null; //Error - the competitor did not punch finish/fail of SI
-        }
-    }
 
 
-    public Time calculateRunTime(Time startTime, Time finishTime) {
-        if (finishTime != null && finishTime.compareTo(startTime) > 0) {
-            return new Time(finishTime.getTime() - startTime.getTime());
-        } else {
-            return null;
-        }
-    }
 
     //Handle classics
     public void handleClassics(ArrayList<Punch> punches, ArrayList<ControlPoint> controlPoints) {

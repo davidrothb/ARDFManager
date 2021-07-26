@@ -1,38 +1,35 @@
 package com.david.ardfmanager.results;
 
 import java.sql.Time;
-    public class Punch {
 
-        private Time punchTime;
-        private int code;
-        //private String type;   //CHK - erase check, ST - start, CP - control point, B - beacon, F - finish
-        //private char CPStatus; // + valid control, - control already taken before, ? - invalid control for the category
+public class Punch {
 
+    private Time punchTime;
+    private int code;
 
 
-        public Punch(Time punchTime, int code) {
-            this.punchTime = punchTime;
-            this.code = code;
-            // this.type = type;
-            // this.CPStatus = CPStatus;
+    public Punch(Time punchTime, int code) {
+        this.punchTime = punchTime;
+        this.code = code;
 
-        }
-        public Time getPunchTime() {
-            return punchTime;
-        }
+    }
 
-        public void setPunchTime(Time punchTime) {
-            this.punchTime = punchTime;
-        }
+    public Time getPunchTime() {
+        return punchTime;
+    }
+
+    public void setPunchTime(Time punchTime) {
+        this.punchTime = punchTime;
+    }
 
 
-        public int getCode() {
-            return code;
-        }
+    public int getCode() {
+        return code;
+    }
 
-        public void setCode(int code) {
-            this.code = code;
-        }
+    public void setCode(int code) {
+        this.code = code;
+    }
 
 
 /*
@@ -52,4 +49,4 @@ import java.sql.Time;
         this.CPStatus = CPStatus;
     }
 */
-    }
+}

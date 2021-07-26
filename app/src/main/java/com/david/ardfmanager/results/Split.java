@@ -2,20 +2,24 @@ package com.david.ardfmanager.results;
 
 import java.sql.Time;
 
+//Class for computing the time of the run and the split times from punches
+
 // punch format Time punchTime, int code, String type
 //split format  int code, char CPStatus, String type, Time punchTime, time relTime, time splitTime
-public class Split {
-    private int code;
-    private char CPStatus;
-    private String type;
-    private Time punchTime;
-    private Time relTime;
-    private Time splitTime;
 
-    public Split(int code, char CPStatus, String type, Time punchTime, Time relTime, Time splitTime) {
+public class Split {
+    private int code; // the SI code number
+    private char CPStatus; // The status of the control + valid control, - control already taken before, ? - invalid control for the category
+    private boolean beacon; // 0 - not a beacon, 1 - beacon
+    private Time punchTime; // The TOD of the punch
+    private Time relTime;   // The time from the start
+    private Time splitTime; // The split time between two Punches
+
+    //constructors
+    public Split(int code, char CPStatus, boolean beacon, Time punchTime, Time relTime, Time splitTime) {
         this.code = code;
         this.CPStatus = CPStatus;
-        this.type = type;
+        this.beacon = beacon;
         this.punchTime = punchTime;
         this.relTime = relTime;
         this.splitTime = splitTime;
@@ -28,6 +32,7 @@ public class Split {
         this.splitTime = splitTime;
     }
 
+    //getters and setters
     public char getCPStatus() {
         return CPStatus;
     }
@@ -36,12 +41,12 @@ public class Split {
         this.CPStatus = CPStatus;
     }
 
-    public String getType() {
-        return type;
+    public boolean getType() {
+        return beacon;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setType(boolean beacon) {
+        this.beacon = beacon;
     }
 
     public Time getPunchTime() {
