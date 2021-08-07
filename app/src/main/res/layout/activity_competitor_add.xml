@@ -60,22 +60,14 @@
             android:showText="false"
             android:text="@string/male" />
 
-        <EditText
-            android:id="@+id/yearTextNumber"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:ems="10"
-            android:hint="@string/year_of_birth"
-            android:inputType="number" />
-
         <NumberPicker
-            android:id="@+id/minAgeNumPick"
+            android:id="@+id/birthYear"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
             android:gravity="center"
             android:orientation="horizontal"></NumberPicker>
 

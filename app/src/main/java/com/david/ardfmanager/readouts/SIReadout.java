@@ -1,24 +1,30 @@
 package com.david.ardfmanager.readouts;
 
-import com.david.ardfmanager.SI.CardReader;
+import android.os.Parcel;
+import android.os.Parcelable;
 
+import com.david.ardfmanager.SI.Punch;
+import com.david.ardfmanager.split.Split;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class SIReadout {
+public class SIReadout implements Serializable {
 
     private long cardId;
     private long startTime;
     private long finishTime;
     private long checkTime;
-    private ArrayList<CardReader.CardEntry.Punch> punches;
+    private ArrayList<Punch> punches;
+    private ArrayList<Split> splits;
 
 
-    public SIReadout(long cardId, long startTime, long finishTime, long checkTime) { //ArrayList<CardReader.CardEntry.Punch> punches
+    public SIReadout(long cardId, long startTime, long finishTime, long checkTime, ArrayList<Punch> punches) { //ArrayList<CardReader.CardEntry.Punch> punches
         this.cardId = cardId;
         this.startTime = startTime;
         this.finishTime = finishTime;
         this.checkTime = checkTime;
-        //this.punches = punches;
+        this.punches = punches;
     }
 
 
@@ -54,12 +60,20 @@ public class SIReadout {
         this.checkTime = checkTime;
     }
 
-    public ArrayList<CardReader.CardEntry.Punch> getPunches() {
+    public ArrayList<Punch> getPunches() {
         return punches;
     }
 
-    public void setPunches(ArrayList<CardReader.CardEntry.Punch> punches) {
+    public void setPunches(ArrayList<Punch> punches) {
         this.punches = punches;
+    }
+
+    public ArrayList<Split> getSplits() {
+        return splits;
+    }
+
+    public void setSplits(ArrayList<Split> splits) {
+        this.splits = splits;
     }
 }
 

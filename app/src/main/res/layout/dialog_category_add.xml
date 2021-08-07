@@ -55,7 +55,7 @@
                 android:textAlignment="gravity" />
 
             <NumberPicker
-                android:id="@+id/minAgeNumPick"
+                android:id="@+id/birthYear"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"></NumberPicker>

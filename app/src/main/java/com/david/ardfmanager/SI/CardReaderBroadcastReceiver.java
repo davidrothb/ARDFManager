@@ -11,12 +11,14 @@ import android.widget.Toast;
 
 import com.david.ardfmanager.MainActivity;
 import com.david.ardfmanager.readouts.SIReadout;
+import com.david.ardfmanager.split.SplitsActivity;
 
 
 public class CardReaderBroadcastReceiver extends BroadcastReceiver {
 
     Activity activity;
     private long deviceId = 0;
+    boolean flag = false;
 
     public CardReaderBroadcastReceiver(Activity activity) {
         this.activity = activity;
@@ -39,9 +41,26 @@ public class CardReaderBroadcastReceiver extends BroadcastReceiver {
                 break;
             case Readout:
                 CardReader.CardEntry cardEntry = (CardReader.CardEntry)intent.getParcelableExtra("Entry");
-                SIReadout siReadout = new SIReadout(cardEntry.cardId, cardEntry.startTime, cardEntry.finishTime, cardEntry.checkTime);
-                MainActivity.siReadoutList.add(siReadout);
-                MainActivity.setAllAdaptersAndSave();
+                SIReadout siReadout = new SIReadout(cardEntry.cardId, cardEntry.startTime, cardEntry.finishTime, cardEntry.checkTime, cardEntry.punches);
+                flag = false;
+                for(SIReadout sir : MainActivity.siReadoutList){
+                    if(siReadout.getCardId() == sir.getCardId() && siReadout.getStartTime() == sir.getStartTime()){
+                        flag = true;
+                        System.out.println("stejny");
+                        Toast.makeText(activity.getApplicationContext(), "tohle uz je vycteny!", Toast.LENGTH_SHORT).show();
+                    }else{
+                        System.out.println("jiny");
+                    }
+
+                }
+
+                if(!flag){
+                    MainActivity.siReadoutList.add(siReadout);
+                    MainActivity.setAllAdaptersAndSave();
+                }else{
+                    Toast.makeText(MainActivity.context, "Uz vycteno", Toast.LENGTH_SHORT).show();
+                }
+
                 /*if (cardEntry.startTime != 0) {
                     long timeDiff = cardEntry.finishTime - cardEntry.startTime;
                     long minutes = timeDiff / (60*1000);

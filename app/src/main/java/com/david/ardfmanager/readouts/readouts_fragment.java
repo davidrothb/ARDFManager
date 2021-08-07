@@ -1,5 +1,6 @@
 package com.david.ardfmanager.readouts;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -8,10 +9,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.david.ardfmanager.MainActivity;
 import com.david.ardfmanager.R;
+import com.david.ardfmanager.split.SplitsActivity;
 
 
 /**
@@ -65,13 +68,19 @@ public class readouts_fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_readouts, container, false);
-        //return inflater.inflate(R.layout.fragment_competitors, container, false);
+
         mListView = (ListView) view.findViewById(R.id.readoutsListView);
         mListView.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
         mListView.setAdapter(MainActivity.siReadoutListAdapter);
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                //ToDO: details activity
+                Intent intent = new Intent(getActivity(), SplitsActivity.class);
+                intent.putExtra("readout", MainActivity.siReadoutList.get(i));
+                startActivity(intent);
+            }
+        });
         return view;
-        /*
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_readouts, container, false);*/
     }
 }

@@ -20,7 +20,6 @@ import android.widget.ListView;
 import android.widget.NumberPicker;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Toast;
 
 import com.david.ardfmanager.DecimalDigitsInputFilter;
 import com.david.ardfmanager.MainActivity;
@@ -137,7 +136,7 @@ public class categories_fragment extends Fragment {
         nameEditText = (EditText) dialogView.findViewById(R.id.nameEditText);
         lengthEditText = (EditText) dialogView.findViewById(R.id.lengthEditText);
         lengthEditText.setFilters(new InputFilter[] {new DecimalDigitsInputFilter(5,2)});
-        minAgeNumPick = dialogView.findViewById(R.id.minAgeNumPick);
+        minAgeNumPick = dialogView.findViewById(R.id.birthYear);
         maxAgeNumPick = dialogView.findViewById(R.id.maxAgeNumPick);
 
         cplv = (ListView) dialogView.findViewById(R.id.control_points_lv);
@@ -208,7 +207,7 @@ public class categories_fragment extends Fragment {
                 builder.setView(customLayout);
 
 
-                final NumberPicker punchNumPick = customLayout.findViewById(R.id.minAgeNumPick);
+                final NumberPicker punchNumPick = customLayout.findViewById(R.id.birthYear);
                 final NumberPicker punchCodePick = customLayout.findViewById(R.id.maxAgeNumPick);
                 final RadioGroup typePicker = customLayout.findViewById(R.id.typePicker);
                 final RadioButton rb_basic_cp = customLayout.findViewById(R.id.rb_basic_cp);

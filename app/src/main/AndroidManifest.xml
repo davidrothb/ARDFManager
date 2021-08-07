@@ -12,11 +12,9 @@
         android:roundIcon="@mipmap/ic_phone"
         android:supportsRtl="false"
         android:theme="@style/AppTheme">
-        <activity android:name=".competitors.CompetitorAddActivity"></activity>
+        <activity android:name=".split.SplitsActivity"></activity>
+        <activity android:name=".competitors.CompetitorAddActivity" />
         <activity android:name=".MainActivity" />
-        <activity
-            android:name=".tracks.trackAddActivity"
-            android:windowSoftInputMode="adjustNothing" />
         <activity
             android:name=".event.EventsManagerActivity"
             android:label="@string/app_name">
@@ -24,6 +22,8 @@
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+
+                <action android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED" />
             </intent-filter>
         </activity>
 

@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.david.ardfmanager.SI.CardReader;
 import com.david.ardfmanager.SI.CardReaderBroadcastReceiver;
+import com.david.ardfmanager.SI.Punch;
 import com.david.ardfmanager.category.CategoryListAdapter;
 import com.david.ardfmanager.competitors.CompetitorsListAdapter;
 import com.david.ardfmanager.competitors.competitors_fragment;
@@ -90,6 +91,8 @@ public class MainActivity extends AppCompatActivity {
     public static int MIN_BIRTH_YEAR = 1920;
     public static int MAX_BIRTH_YEAR = calendar.get(Calendar.YEAR);
 
+    public static Context context;
+
 
     //SI VOLE
     private CardReaderBroadcastReceiver mMessageReceiver = new CardReaderBroadcastReceiver(MainActivity.this);
@@ -137,6 +140,8 @@ public class MainActivity extends AppCompatActivity {
 
         //resources
         resources = getResources();
+
+        context = this;
         
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.categories,
@@ -192,7 +197,13 @@ public class MainActivity extends AppCompatActivity {
                 }else if(currentFragment == getResources().getString(R.string.title_competitors)){
                     competitors_fragment.showCompetitorAddDialog(MainActivity.this, null);
                 }else if(currentFragment == getResources().getString(R.string.title_readouts)){
-                    SIReadout siReadout = new SIReadout(6969, 666666,666666666, 10);
+                    ArrayList<Punch> punches = new ArrayList<>();
+                    punches.add(new Punch(1,1000));
+                    punches.add(new Punch(2,3000));
+                    punches.add(new Punch(3,6000));
+                    punches.add(new Punch(4,9000));
+                    punches.add(new Punch(5,18000));
+                    SIReadout siReadout = new SIReadout(1234, 10,100000, 5, punches);
                     siReadoutList.add(siReadout);
                 }
                 setAllAdaptersAndSave();
@@ -334,4 +345,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public static String longTimeToString(long time){
+        long minutes = time / (60*1000);
+        long seconds = (time - minutes * 60 * 1000) / 1000;
+        long hundreds = (time - minutes * 60 * 1000 - seconds * 1000);
+        return (String)String.valueOf(minutes) + ":" + String.valueOf(seconds) + "." + String.valueOf(hundreds);
+    }
 }

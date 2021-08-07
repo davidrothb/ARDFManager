@@ -7,28 +7,28 @@
     android:orientation="horizontal">
 
     <TextView
-        android:id="@+id/nameText"
+        android:id="@+id/cp_status_text"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="0.5"
         android:gravity="center" />
 
     <TextView
-        android:id="@+id/agesText"
+        android:id="@+id/cp_code_text"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="0.5"
         android:gravity="center" />
 
     <TextView
-        android:id="@+id/lengthText"
+        android:id="@+id/beacon_text"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="0.5"
         android:gravity="center" />
 
     <TextView
-        android:id="@+id/cpCountText"
+        android:id="@+id/time_from_start_text"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="0.5"

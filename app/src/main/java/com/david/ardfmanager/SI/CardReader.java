@@ -28,39 +28,6 @@ import static java.lang.Math.min;
 public class CardReader extends AsyncTask<String, String, String> {
     public static final String EVENT_IDENTIFIER = "CardReader-Event";
     public static class CardEntry implements Parcelable {
-        public static class Punch implements Parcelable {
-            public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
-                public Punch createFromParcel(Parcel in) {
-                    return new Punch(in);
-                }
-
-                public Punch[] newArray(int size) {
-                    return new Punch[size];
-                }
-            };
-            public int code;
-            public long time;
-
-            public Punch()
-            {
-            }
-
-            public Punch(Parcel in) {
-                this.code = in.readInt();
-                this.time = in.readLong();
-            }
-
-            @Override
-            public int describeContents() {
-                return 0;
-            }
-
-            @Override
-            public void writeToParcel(Parcel dest, int flags) {
-                dest.writeInt(this.code);
-                dest.writeLong(this.time);
-            }
-        }
 
         public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
             public CardEntry createFromParcel(Parcel in) {
@@ -398,14 +365,14 @@ public class CardReader extends AsyncTask<String, String, String> {
             entry.checkTime = (byteToUnsignedInt(data[offset+25]) << 8) + byteToUnsignedInt(data[offset+26]);
             int punchCount = byteToUnsignedInt(data[offset+23]) - 1;
             for (int i=0; i<punchCount && i<30; i++) {
-                CardEntry.Punch punch = new CardEntry.Punch();
+                Punch punch = new Punch();
                 int baseoffset = offset + 32 + (i/5)*16 + 1 + 3*(i%5);
                 punch.code = byteToUnsignedInt(data[baseoffset]);
                 punch.time = (byteToUnsignedInt(data[baseoffset+1]) << 8) + byteToUnsignedInt(data[baseoffset+2]);
                 entry.punches.add(punch);
             }
             for (int i=30; i<punchCount; i++) {
-                CardEntry.Punch punch = new CardEntry.Punch();
+                Punch punch = new Punch();
                 int baseoffset = offset + 32 + (i-30)*16;
                 punch.code = data[baseoffset];
                 punch.time = 0;
@@ -424,9 +391,9 @@ public class CardReader extends AsyncTask<String, String, String> {
     {
         entry.cardId = (byteToUnsignedInt(data[10]) << 24) | (byteToUnsignedInt(data[11]) << 16) | (byteToUnsignedInt(data[12]) << 8) | byteToUnsignedInt(data[13]);
 
-        CardEntry.Punch startPunch = new CardEntry.Punch();
-        CardEntry.Punch finishPunch = new CardEntry.Punch();
-        CardEntry.Punch checkPunch = new CardEntry.Punch();
+        Punch startPunch = new Punch();
+        Punch finishPunch = new Punch();
+        Punch checkPunch = new Punch();
         parsePunch(Arrays.copyOfRange(data, 24, 28), startPunch);
         parsePunch(Arrays.copyOfRange(data, 20, 24), finishPunch);
         parsePunch(Arrays.copyOfRange(data, 28, 32), checkPunch);
@@ -436,7 +403,7 @@ public class CardReader extends AsyncTask<String, String, String> {
 
         int punches = min(data[18], 192);
         for (int i=0; i<punches; i++) {
-            CardEntry.Punch tmpPunch = new CardEntry.Punch();
+            Punch tmpPunch = new Punch();
             if (parsePunch(Arrays.copyOfRange(data, 128+4*i, 128+4*i+4), tmpPunch)) {
                 entry.punches.add(tmpPunch);
             }
@@ -449,9 +416,9 @@ public class CardReader extends AsyncTask<String, String, String> {
         entry.cardId = (byteToUnsignedInt(data[25]) << 16) | (byteToUnsignedInt(data[26]) << 8) | byteToUnsignedInt(data[27]);
         int series = data[24] & 0x0f;
 
-        CardEntry.Punch startPunch = new CardEntry.Punch();
-        CardEntry.Punch finishPunch = new CardEntry.Punch();
-        CardEntry.Punch checkPunch = new CardEntry.Punch();
+        Punch startPunch = new Punch();
+        Punch finishPunch = new Punch();
+        Punch checkPunch = new Punch();
         parsePunch(Arrays.copyOfRange(data, 12, 16), startPunch);
         parsePunch(Arrays.copyOfRange(data, 16, 20), finishPunch);
         parsePunch(Arrays.copyOfRange(data, 8, 12), checkPunch);
@@ -463,7 +430,7 @@ public class CardReader extends AsyncTask<String, String, String> {
             // SI card 9
             int punches = min(data[22], 50);
             for (int i=0; i<punches; i++) {
-                CardEntry.Punch tmpPunch = new CardEntry.Punch();
+                Punch tmpPunch = new Punch();
                 if (parsePunch(Arrays.copyOfRange(data, 14*4+4*i, 14*4+4*i+4), tmpPunch)) {
                     entry.punches.add(tmpPunch);
                 }
@@ -473,7 +440,7 @@ public class CardReader extends AsyncTask<String, String, String> {
             // SI card 8
             int punches = min(data[22], 30);
             for (int i=0; i<punches; i++) {
-                CardEntry.Punch tmpPunch = new CardEntry.Punch();
+                Punch tmpPunch = new Punch();
                 if (parsePunch(Arrays.copyOfRange(data, 34*4+4*i, 34*4+4*i+4), tmpPunch)) {
                     entry.punches.add(tmpPunch);
                 }
@@ -483,7 +450,7 @@ public class CardReader extends AsyncTask<String, String, String> {
             // pCard
             int punches = min(data[22], 20);
             for (int i=0; i<punches; i++) {
-                CardEntry.Punch tmpPunch = new CardEntry.Punch();
+                Punch tmpPunch = new Punch();
                 if (parsePunch(Arrays.copyOfRange(data, 44*4+4*i, 44*4+4*i+4), tmpPunch)) {
                     entry.punches.add(tmpPunch);
                 }
@@ -493,7 +460,7 @@ public class CardReader extends AsyncTask<String, String, String> {
             // SI card 10, 11, siac
             int punches = min(data[22], 128);
             for (int i=0; i<punches; i++) {
-                CardEntry.Punch tmpPunch = new CardEntry.Punch();
+                Punch tmpPunch = new Punch();
                 if (parsePunch(Arrays.copyOfRange(data, 128+4*i, 128+4*i+4), tmpPunch)) {
                     entry.punches.add(tmpPunch);
                 }
@@ -523,7 +490,7 @@ public class CardReader extends AsyncTask<String, String, String> {
         }
         long currentBase = pmOffset;
         long lastTime = zeroTimeBase;
-        for (CardEntry.Punch punch : entry.punches) {
+        for (Punch punch : entry.punches) {
             long tmpTime = punch.time * 1000 + currentBase;
             //if (tmpTime < lastTime) {
             //    currentBase += HALF_DAY;
@@ -540,7 +507,7 @@ public class CardReader extends AsyncTask<String, String, String> {
         entry.finishTime = tmpTime - zeroTimeBase;
     }
 
-    private boolean parsePunch(byte[] data, CardEntry.Punch punch)
+    private boolean parsePunch(byte[] data, Punch punch)
     {
         if (data[0] == (byte)0xee && data[1] == (byte)0xee && data[2] == (byte)0xee && data[3] == (byte)0xee) {
             return false;

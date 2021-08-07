@@ -8,10 +8,8 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.david.ardfmanager.R;
-import com.david.ardfmanager.category.Category;
 
 import java.util.ArrayList;
-import java.util.Locale;
 
 /**
  * Created by David on 17. 7. 2017.
@@ -40,10 +38,10 @@ public class CategoryListAdapter extends ArrayAdapter<Category> {
         LayoutInflater inflater = LayoutInflater.from(mContext);
         convertView = inflater.inflate(mResource, parent, false);
 
-        TextView textName = (TextView) convertView.findViewById(R.id.nameText);
-        TextView textAges = (TextView) convertView.findViewById(R.id.agesText);
-        TextView textLength = (TextView) convertView.findViewById(R.id.lengthText);
-        TextView textCpCount = (TextView) convertView.findViewById(R.id.cpCountText);
+        TextView textName = (TextView) convertView.findViewById(R.id.cp_status_text);
+        TextView textAges = (TextView) convertView.findViewById(R.id.cp_code_text);
+        TextView textLength = (TextView) convertView.findViewById(R.id.beacon_text);
+        TextView textCpCount = (TextView) convertView.findViewById(R.id.time_from_start_text);
 
         textName.setText(name);
         String ages = minAge + "/" + maxAge;

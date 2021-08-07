@@ -115,5 +115,14 @@
     <string name="max_min_birthyear">Min/max ročník</string>
     <string name="edit_category">Upravit kategorii</string>
     <string name="select_category">Vyberte kategorii</string>
+    <string name="splits">Splits</string>
+    <string name="finish">Finish</string>
+    <string name="cp_number">CP number</string>
+    <string name="time_on_track">Time on track</string>
+    <string name="time_from_last_split">Time from last split</string>
+    <string name="daytime">Daytime</string>
+    <string name="cp_status">CP status</string>
+    <string name="time_from_start">Time from start</string>
+    <string name="split_time">Split time</string>
 
 </resources>

@@ -15,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.NumberPicker;
 import android.widget.Spinner;
 import android.widget.Switch;
 
@@ -103,7 +104,6 @@ public class competitors_fragment extends Fragment {
     }
 
     public static void showCompetitorAddDialog(Context c, Competitor competitor) {
-        //ToDo: misto planet kategorie,
 
         ViewGroup viewGroup = view.findViewById(android.R.id.content);
         View dialogView = LayoutInflater.from(c).inflate(R.layout.activity_competitor_add, viewGroup, false);
@@ -123,7 +123,6 @@ public class competitors_fragment extends Fragment {
         EditText nameEditText = dialogView.findViewById(R.id.nameEditText);
         EditText surnameEditText = dialogView.findViewById(R.id.surnameEditText);
         EditText tagNumberNumber = dialogView.findViewById(R.id.tagNumberNumber);
-        EditText yearTextNumber = dialogView.findViewById(R.id.yearTextNumber);
         EditText countryEditText = dialogView.findViewById(R.id.countryEditText);
         EditText indexEditText = dialogView.findViewById(R.id.indexEditText);
         EditText startNumberNumber = dialogView.findViewById(R.id.startNumberNumber);
@@ -131,6 +130,10 @@ public class competitors_fragment extends Fragment {
         EditText startTimeEditText = dialogView.findViewById(R.id.startTimeEditText);
 
         Spinner categorySpinner = dialogView.findViewById(R.id.categorySpinner);
+        NumberPicker birthYear = dialogView.findViewById(R.id.birthYear);
+        birthYear.setMinValue(MainActivity.MIN_BIRTH_YEAR);
+        birthYear.setMaxValue(MainActivity.MAX_BIRTH_YEAR);
+        birthYear.setValue(birthYear.getMaxValue()-10);
 
         Switch genderSwitch = dialogView.findViewById(R.id.genderSwitch);
         Button confButt = dialogView.findViewById(R.id.confButton);
@@ -177,11 +180,7 @@ public class competitors_fragment extends Fragment {
                         SINumber = -1;
                     }
 
-                    if (!yearTextNumber.getText().toString().equals("")) {
-                        yearOfBirth = Integer.parseInt(yearTextNumber.getText().toString());
-                    } else {
-                        yearOfBirth = -1;
-                    }
+                    yearOfBirth = birthYear.getValue();
 
                     if (!startNumberNumber.getText().toString().equals("")) {
                         startNumber = Integer.parseInt(startNumberNumber.getText().toString());
