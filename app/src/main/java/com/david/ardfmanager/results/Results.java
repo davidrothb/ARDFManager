@@ -9,7 +9,9 @@ import java.util.ArrayList;
 public class Results {
 
 
+    /*
     // ALL TO BE UPDATED!!! - dynamic reference to the CP ArrayList and to the readout
+     */
 
     /*
     ArrayList<Punch> punches - punches read from the SI  ......Last index should be finish. In case of no
@@ -30,22 +32,29 @@ public class Results {
     ? - invalid control for category
 
 
-*//*
+*/
+    public boolean returnCPStatus(int CPcode) {
+
+        switch (CPcode):
+
+        case 0:
+
+        if () {
+            return true;
+        } else {
+            return false;
+        }
+
+        case 1:
+
+    }
+
+
+    /*
     private static int eventType;  // Get from the Category class 0 -classic, 1 - sprint, 2 - orienteering
     private static int status = 0; // 0 - valid, 1 - after time limit, 2- DQ, 3 - not evaluated
 
-    private static ArrayList<Punch> punches = new ArrayList<>();    //punches imported from readout
-    private static ArrayList<Punch> processedPunches = new ArrayList<>();   // punches already processed
-    private static ArrayList<ControlPoint> validCP = new ArrayList<>(); //event.getTrack(ZAVODNIK.getTrack).getControlPoints(); //competitor.get...  // arraylist of valid controlpoints
 
-    //Trat t = event.getTrat();
-    //Kontroly k = t.getKontroly();
-    //Kontroly k = event.getTrat().getKontroly();
-
-    public void makeResults(Competitor competitor){
-        punches = competitor.getPunches();
-        validCP = MainActivity.event.getTrack()
-    }
 
     //this method returns time from SI
     public static Time getTimefromSI(int type){
@@ -85,7 +94,7 @@ public class Results {
 
 
 		Something that should be later used for printing via the bluetooth Printer
-	}}*/
+	}}
 
     ArrayList<Punch> punches = new ArrayList<Punch>(); //Competitor punches
 
@@ -103,12 +112,6 @@ public class Results {
 
 
     //Time section
-
-
-
-
-
-
 
 
     //Handle classics
@@ -173,29 +176,32 @@ public class Results {
          * 1) vzít kontrolu - ověřit duplicitu
          * 2) změnit status
          *   */
-        ArrayList<Punch> punches = this.punches;
-        ArrayList<ControlPoint> controlPoints = this.controlPoints;
+    /* ArrayList<Punch> punches = this.punches;
+    ArrayList<ControlPoint> controlPoints = this.controlPoints;
 
 
-        for (int i = 0; i < punches.size(); i++) {
-            for (int j = 0; j < controlPoints.size(); j++) {
-                if (controlPoints.get(j).getCode() == punches.get(i).getCode() && punches.get(i).getType().equals("CP")) {
+        for(
+    int i = 0; i<punches.size();i++)
 
-                    punches.get(i).setCPStatus('+');
+    {
+        for (int j = 0; j < controlPoints.size(); j++) {
+            if (controlPoints.get(j).getCode() == punches.get(i).getCode() && punches.get(i).getType().equals("CP")) {
 
-                } else {
-                    punches.get(i).setCPStatus('?');
+                punches.get(i).setCPStatus('+');
 
-                }
+            } else {
+                punches.get(i).setCPStatus('?');
 
             }
-            /* Need to solve the duplicate fox situation !!!!!!!
-             * Multiple control needs to be marked with minus
-             * */
-        }
-    }
 
-    public void orienteeringCPStatus() {
+        }
+        /* Need to solve the duplicate fox situation !!!!!!!
+         * Multiple control needs to be marked with minus
+         *
+    }
+} */
+
+    /*public void orienteeringCPStatus() {
 
         // checks if the punches codes are the same as the Control reference list
         ArrayList<Punch> punches = this.punches;
@@ -236,7 +242,12 @@ public class Results {
     }
 
     public void sortResults(ArrayList<Competitor> competitors) {
+        ArrayList<Competitor> sorted = new ArrayList<Competitor>();
 
+        for (int i = 0; i < competitors.size(); i++) {
+        
+
+        }
 
     }
 
@@ -258,9 +269,12 @@ public class Results {
             handleOrienteering()
             break;
 
-    }*/
-
     }
 
 
+
+    */
+
+
 }
+
