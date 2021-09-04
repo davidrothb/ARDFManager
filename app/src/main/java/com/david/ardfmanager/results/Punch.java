@@ -1,8 +1,9 @@
 package com.david.ardfmanager.results;
 
+import java.io.Serializable;
 import java.sql.Time;
 
-public class Punch {
+public class Punch implements Serializable {
 
     private Time punchTime;
     private int code;
