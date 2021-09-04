@@ -128,6 +128,8 @@ public class Results {
 
 
 
+
+
     //this method calculates the number of all Foxes taken (including invalid)
     public static int allFoxNum(){
         int allFox;
