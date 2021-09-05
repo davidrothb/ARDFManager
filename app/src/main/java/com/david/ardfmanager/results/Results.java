@@ -180,17 +180,7 @@ public class Results {
     //Main part
     public static void main(String[] args) {
         //setTimes();
-       /* switch (eventType) {
-            case 0:
-                handleClassics();
-                break;
-        case 1:
-            handleSprint()
-            break;
-        case 2:
-            handleOrienteering()
-            break;
-    }
+       /*
     */
 
 

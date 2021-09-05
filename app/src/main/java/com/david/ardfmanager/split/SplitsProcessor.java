@@ -22,7 +22,6 @@ public class SplitsProcessor {
 
     public void setStartTime() {
 
-
     }
 
     //THE IMPORTANT SHIT
@@ -36,15 +35,7 @@ public class SplitsProcessor {
         return splits;
     }
 
-    /* // This method sets the finish Time of the competitor to the value read from the SI
-    public Time setFinishTime(ArrayList<Punch> punches) {
-        if (punches.get(punches.size() - 1).getType().equals("F")) {
-            return punches.get(punches.size() - 1).getPunchTime();
-        } else {
-            return null; //Error - the competitor did not punch finish/fail of SI
-        }
-    }
-*/
+
 
     public long calculateRunTime(long startTime, long finishTime) {
         if (finishTime != 0 && finishTime > startTime) {
@@ -81,6 +72,8 @@ public class SplitsProcessor {
     public long calculateSplit(long punchOneTime, long punchTwoTime) {
         return punchTwoTime - punchOneTime;
     }
+
+
 
 
 }

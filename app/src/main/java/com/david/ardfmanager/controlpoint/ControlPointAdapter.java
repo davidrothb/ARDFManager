@@ -26,7 +26,7 @@ public class ControlPointAdapter extends ArrayAdapter<ControlPoint> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        int number = getItem(position).getNumber();
+        String number = getItem(position).getName();
         int code = getItem(position).getCode();
         int type = getItem(position).getType();
 

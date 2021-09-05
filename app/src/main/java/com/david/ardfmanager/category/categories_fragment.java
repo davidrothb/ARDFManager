@@ -237,7 +237,7 @@ public class categories_fragment extends Fragment {
                     @Override
                     public void onClick(View v)
                     {
-                            int number = punchNumPick.getValue();
+                            String number = ""+punchNumPick.getValue();
                             int code = punchCodePick.getValue();
                             int type;
                             if(typePicker.getCheckedRadioButtonId() == rb_basic_cp.getId()){
@@ -264,7 +264,7 @@ public class categories_fragment extends Fragment {
     public static void sortAndSet(){
         Collections.sort(controlPointsList, new Comparator<ControlPoint>() {
             public int compare(ControlPoint cp1, ControlPoint cp2) {
-                return Integer.compare(cp1.getNumber(), cp2.getNumber());
+                return Integer.compare(Integer.parseInt(cp1.getName()),Integer.parseInt(cp2.getName()));
             }
         });
         cplv.setAdapter(controlPointAdapter);
