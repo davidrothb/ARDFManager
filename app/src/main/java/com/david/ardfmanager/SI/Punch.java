@@ -3,7 +3,9 @@ package com.david.ardfmanager.SI;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Punch implements Parcelable {
+import java.io.Serializable;
+
+public class Punch implements Parcelable, Serializable {
     public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
         public Punch createFromParcel(Parcel in) {
             return new Punch(in);
