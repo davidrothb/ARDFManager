@@ -15,14 +15,24 @@ public class Punch implements Parcelable, Serializable {
             return new Punch[size];
         }
     };
-    public int code;
-    public long time;
 
-    public Punch()
-    {
+
+    public int code; //The SI station code
+    public long time; //The time of the punch
+    private String type;   //CHK - erase check, ST - start, CP - control point, B - beacon, F - finish
+    private char CPStatus; // + valid control, - control already taken before, ? - invalid control for the category
+
+    public Punch(int code, long time, String type, char CPStatus) {
+        this.code = code;
+        this.time = time;
+        this.type = type;
+        this.CPStatus = CPStatus;
     }
 
-    public Punch(int code, long time){
+    public Punch() {
+    }
+
+    public Punch(int code, long time) {
         this.code = code;
         this.time = time;
     }
@@ -42,31 +52,6 @@ public class Punch implements Parcelable, Serializable {
         dest.writeInt(this.code);
         dest.writeLong(this.time);
     }
-}
-
-
-/*public class Punch {
-
-    private Time punchTime;
-    private int code;
-    private String type;   //CHK - erase check, ST - start, CP - control point, B - beacon, F - finish
-    private char CPStatus; // + valid control, - control already taken before, ? - invalid control for the category
-
-    public Punch(Time punchTime, int code, String type, char CPStatus) {
-        this.punchTime = punchTime;
-        this.code = code;
-        this.type = type;
-        this.CPStatus = CPStatus;
-
-    }
-    public Time getPunchTime() {
-        return punchTime;
-    }
-
-    public void setPunchTime(Time punchTime) {
-        this.punchTime = punchTime;
-    }
-
 
     public int getCode() {
         return code;
@@ -76,6 +61,13 @@ public class Punch implements Parcelable, Serializable {
         this.code = code;
     }
 
+    public long getTime() {
+        return time;
+    }
+
+    public void setTime(long time) {
+        this.time = time;
+    }
 
     public String getType() {
         return type;
@@ -85,6 +77,12 @@ public class Punch implements Parcelable, Serializable {
         this.type = type;
     }
 
+    public char getCPStatus() {
+        return CPStatus;
+    }
 
+    public void setCPStatus(char CPStatus) {
+        this.CPStatus = CPStatus;
+    }
+}
 
-}*/

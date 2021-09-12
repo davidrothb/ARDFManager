@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class SplitsProcessor {
 
 
-    //private ArrayList<Punch> punches = new ArrayList<Punch>(); //TODO: Reference to the actual arrayList
+     //TODO: Reference to the actual arrayList
     private ArrayList<Split> splits = new ArrayList<Split>();
 
     private long startTime;
@@ -72,8 +72,6 @@ public class SplitsProcessor {
     public long calculateSplit(long punchOneTime, long punchTwoTime) {
         return punchTwoTime - punchOneTime;
     }
-
-
 
 
 }

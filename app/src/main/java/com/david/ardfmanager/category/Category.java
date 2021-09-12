@@ -16,7 +16,7 @@ public class Category implements Serializable {
     private String name;
     private int minAge, maxAge;
     private float length;
-    private ArrayList<ControlPoint> controlPoints = new ArrayList<ControlPoint>();
+    private ArrayList<ControlPoint> controlPoints = new ArrayList<ControlPoint>(); //stores the right CPs for the category
 
     public Category(String name, int minAge, int maxAge, float length, ArrayList<ControlPoint> cps){
         this.name = name;
