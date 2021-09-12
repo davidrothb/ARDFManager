@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class SIReadout implements Serializable {
 
     private long cardId;
-    private long startTime;
+    private long startTime ;
     private long finishTime;
     private long checkTime;
     private ArrayList<Punch> punches;

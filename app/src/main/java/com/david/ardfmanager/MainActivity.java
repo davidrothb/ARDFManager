@@ -54,7 +54,7 @@ import androidx.navigation.ui.NavigationUI;
 
 public class MainActivity extends AppCompatActivity {
 
-    //ToDo: edit dialogs, saving right after object is created
+    //ToDo: edit dialogs, saving right after object is created, punch fragment, readout time is broken af
 
     //public static TracksListAdapter tracksListAdapter;
     public static CategoryListAdapter categoryListAdapter;
