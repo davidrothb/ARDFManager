@@ -9,10 +9,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.david.ardfmanager.MainActivity;
 import com.david.ardfmanager.R;
 import com.david.ardfmanager.competitors.Competitor;
-import com.david.ardfmanager.competitors.competitors_fragment;
+import com.david.ardfmanager.competitors.Competitors_fragment;
 import com.david.ardfmanager.readouts.SIReadout;
 
 import java.util.ArrayList;
@@ -45,7 +44,7 @@ public class SplitsActivity extends AppCompatActivity {
         number_text = findViewById(R.id.text_number);
         splits_list_view = findViewById(R.id.splits_list_view);
 
-        Competitor competitor = competitors_fragment.findCompBySI(siReadout.getCardId());
+        Competitor competitor = Competitors_fragment.findCompBySI(siReadout.getCardId());
         if(competitor != null){
             name_text.setText(competitor.getFullName());
         }else{

@@ -19,10 +19,10 @@ import com.david.ardfmanager.split.SplitsActivity;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link readouts_fragment#newInstance} factory method to
+ * Use the {@link Readouts_fragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class readouts_fragment extends Fragment {
+public class Readouts_fragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -33,7 +33,7 @@ public class readouts_fragment extends Fragment {
     private String mParam2;
     public static ListView mListView;
 
-    public readouts_fragment() {
+    public Readouts_fragment() {
         // Required empty public constructor
     }
 
@@ -46,8 +46,8 @@ public class readouts_fragment extends Fragment {
      * @return A new instance of fragment readouts.
      */
     // TODO: Rename and change types and number of parameters
-    public static readouts_fragment newInstance(String param1, String param2) {
-        readouts_fragment fragment = new readouts_fragment();
+    public static Readouts_fragment newInstance(String param1, String param2) {
+        Readouts_fragment fragment = new Readouts_fragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);

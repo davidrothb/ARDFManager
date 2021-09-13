@@ -16,18 +16,8 @@ public class Punch implements Parcelable, Serializable {
         }
     };
 
-
     public int code; //The SI station code
     public long time; //The time of the punch
-    private String type;   //CHK - erase check, ST - start, CP - control point, B - beacon, F - finish
-    private char CPStatus; // + valid control, - control already taken before, ? - invalid control for the category
-
-    public Punch(int code, long time, String type, char CPStatus) {
-        this.code = code;
-        this.time = time;
-        this.type = type;
-        this.CPStatus = CPStatus;
-    }
 
     public Punch() {
     }
@@ -69,20 +59,5 @@ public class Punch implements Parcelable, Serializable {
         this.time = time;
     }
 
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public char getCPStatus() {
-        return CPStatus;
-    }
-
-    public void setCPStatus(char CPStatus) {
-        this.CPStatus = CPStatus;
-    }
-}
+  }
 

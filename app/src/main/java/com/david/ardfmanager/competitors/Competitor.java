@@ -11,25 +11,15 @@ public class Competitor implements Serializable {
 
     private int ID;
     private long SINumber;
-
     private String name;
-
     private String surname;
-
     private String category;
-
-    private int gender;
-
+    private int gender; //0 - man, 1 - woman
     private int yearOfBirth;
-
     private String callsign;
-
     private String country;
-
     private int startNumber;
-
     private String index;
-
     private Time startTime;
     private Time finishTime;
 

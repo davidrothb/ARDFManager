@@ -24,15 +24,14 @@ import com.david.ardfmanager.R;
 import com.david.ardfmanager.category.Category;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link competitors_fragment#newInstance} factory method to
+ * Use the {@link Competitors_fragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class competitors_fragment extends Fragment {
+public class Competitors_fragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -50,7 +49,7 @@ public class competitors_fragment extends Fragment {
     static String name, surname, category, callsign, country, index;
 
 
-    public competitors_fragment() {
+    public Competitors_fragment() {
         // Required empty public constructor
     }
 
@@ -63,8 +62,8 @@ public class competitors_fragment extends Fragment {
      * @return A new instance of fragment competitors.
      */
     // TODO: Rename and change types and number of parameters
-    public static competitors_fragment newInstance(String param1, String param2) {
-        competitors_fragment fragment = new competitors_fragment();
+    public static Competitors_fragment newInstance(String param1, String param2) {
+        Competitors_fragment fragment = new Competitors_fragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);

@@ -1,4 +1,4 @@
-package com.david.ardfmanager;
+package com.david.ardfmanager.results;
 
 import android.os.Bundle;
 
@@ -7,18 +7,16 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
-import android.widget.ListView;
 
-import com.david.ardfmanager.category.categories_fragment;
+import com.david.ardfmanager.R;
+
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link controlPointsFragment#newInstance} factory method to
+ * Use the {@link Results_fragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class controlPointsFragment extends Fragment {
-
+public class Results_fragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -27,10 +25,8 @@ public class controlPointsFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    public static ListView mListView;
-    static View view;
 
-    public controlPointsFragment() {
+    public Results_fragment() {
         // Required empty public constructor
     }
 
@@ -40,11 +36,11 @@ public class controlPointsFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment controlPointsFragment.
+     * @return A new instance of fragment results.
      */
     // TODO: Rename and change types and number of parameters
-    public static controlPointsFragment newInstance(String param1, String param2) {
-        controlPointsFragment fragment = new controlPointsFragment();
+    public static Results_fragment newInstance(String param1, String param2) {
+        Results_fragment fragment = new Results_fragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -64,11 +60,7 @@ public class controlPointsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_control_points, container, false);
-        //return inflater.inflate(R.layout.fragment_competitors, container, false);
-        mListView = (ListView) view.findViewById(R.id.control_points_lv);
-        mListView.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
-        mListView.setAdapter(MainActivity.controlPointAdapter);
-        return view;
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_results, container, false);
     }
 }

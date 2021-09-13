@@ -30,15 +30,16 @@ import com.david.ardfmanager.SI.CardReaderBroadcastReceiver;
 import com.david.ardfmanager.SI.Punch;
 import com.david.ardfmanager.category.CategoryListAdapter;
 import com.david.ardfmanager.competitors.CompetitorsListAdapter;
-import com.david.ardfmanager.competitors.competitors_fragment;
+import com.david.ardfmanager.competitors.Competitors_fragment;
 import com.david.ardfmanager.controlpoint.ControlPoint;
 import com.david.ardfmanager.controlpoint.ControlPointAdapter;
+import com.david.ardfmanager.controlpoint.ControlPoints_Fragment;
 import com.david.ardfmanager.event.Event;
 import com.david.ardfmanager.event.EventsManagerActivity;
 import com.david.ardfmanager.readouts.SIReadout;
 import com.david.ardfmanager.readouts.SIReadoutListAdapter;
-import com.david.ardfmanager.readouts.readouts_fragment;
-import com.david.ardfmanager.category.categories_fragment;
+import com.david.ardfmanager.readouts.Readouts_fragment;
+import com.david.ardfmanager.category.Categories_fragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -203,9 +204,9 @@ public class MainActivity extends AppCompatActivity {
                 String currentFragment = navController.getCurrentDestination().getLabel().toString();
                 System.out.println(currentFragment);
                 if(currentFragment == getResources().getString(R.string.title_tracks)){
-                    categories_fragment.showCategoryAddDialog(MainActivity.this, null);
+                    Categories_fragment.showCategoryAddDialog(MainActivity.this, null);
                 }else if(currentFragment == getResources().getString(R.string.title_competitors)){
-                    competitors_fragment.showCompetitorAddDialog(MainActivity.this, null);
+                    Competitors_fragment.showCompetitorAddDialog(MainActivity.this, null);
                 }else if(currentFragment == getResources().getString(R.string.title_readouts)){
                     ArrayList<Punch> punches = new ArrayList<>();
                     punches.add(new Punch(1,1000));
@@ -316,26 +317,26 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public static void setAllAdaptersAndSave() {
-        if (categories_fragment.mListView != null) {
-            categories_fragment.mListView.setAdapter(categoryListAdapter);
+        if (Categories_fragment.mListView != null) {
+            Categories_fragment.mListView.setAdapter(categoryListAdapter);
         }else{
             Log.d("fragments", "Categories fragment object is null");
         }
 
-        if (competitors_fragment.mListView != null) {
-            competitors_fragment.mListView.setAdapter(competitorsListAdapter);
+        if (Competitors_fragment.mListView != null) {
+            Competitors_fragment.mListView.setAdapter(competitorsListAdapter);
         }else{
             Log.d("fragments", "Competitors fragment object is null");
         }
 
-        if (readouts_fragment.mListView != null) {
-            readouts_fragment.mListView.setAdapter(siReadoutListAdapter);
+        if (Readouts_fragment.mListView != null) {
+            Readouts_fragment.mListView.setAdapter(siReadoutListAdapter);
         }else{
             Log.d("fragments", "Readout fragment object is null");
         }
 
-        if (controlPointsFragment.mListView != null) {
-            controlPointsFragment.mListView.setAdapter(controlPointAdapter);
+        if (ControlPoints_Fragment.mListView != null) {
+            ControlPoints_Fragment.mListView.setAdapter(controlPointAdapter);
         }else{
             Log.d("fragments", "Control points fragment object is null");
         }

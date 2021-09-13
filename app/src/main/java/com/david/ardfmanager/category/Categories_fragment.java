@@ -34,10 +34,10 @@ import java.util.Comparator;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link categories_fragment#newInstance} factory method to
+ * Use the {@link Categories_fragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class categories_fragment extends Fragment {
+public class Categories_fragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -59,7 +59,7 @@ public class categories_fragment extends Fragment {
     private static ControlPointAdapter controlPointAdapter;
 
 
-    public categories_fragment() {
+    public Categories_fragment() {
         // Required empty public constructor
     }
 
@@ -72,8 +72,8 @@ public class categories_fragment extends Fragment {
      * @return A new instance of fragment tracks.
      */
     // TODO: Rename and change types and number of parameters
-    public static categories_fragment newInstance(String param1, String param2) {
-        categories_fragment fragment = new categories_fragment();
+    public static Categories_fragment newInstance(String param1, String param2) {
+        Categories_fragment fragment = new Categories_fragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -98,7 +98,7 @@ public class categories_fragment extends Fragment {
         //return inflater.inflate(R.layout.fragment_tracks, container, false);
         mListView = (ListView) view.findViewById(R.id.tracksListView);
         mListView.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
-        categories_fragment.mListView.setAdapter(MainActivity.categoryListAdapter);
+        Categories_fragment.mListView.setAdapter(MainActivity.categoryListAdapter);
 
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
