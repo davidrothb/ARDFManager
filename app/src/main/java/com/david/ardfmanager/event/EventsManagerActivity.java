@@ -173,7 +173,7 @@ public class EventsManagerActivity extends AppCompatActivity {
                     JSONArray jsonControlPointsArray = jsonCategory.getJSONArray("controlPoints");
                     for (int y = 0; y < jsonControlPointsArray.length(); y++) {
                         JSONObject jsonControlPoint = jsonControlPointsArray.getJSONObject(y);
-                        String number = jsonControlPoint.getInt("number");
+                        String number = String.valueOf(jsonControlPoint.getInt("number"));
                         int code = jsonControlPoint.getInt("code");
                         int ctype = jsonControlPoint.getInt("type");
                         controlPointArrayList.add(new ControlPoint(number, code, ctype));

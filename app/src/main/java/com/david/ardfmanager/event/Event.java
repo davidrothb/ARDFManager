@@ -5,6 +5,7 @@ import android.content.res.Resources;
 import com.david.ardfmanager.R;
 import com.david.ardfmanager.category.Category;
 import com.david.ardfmanager.competitors.Competitor;
+import com.david.ardfmanager.controlpoint.ControlPoint;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ public class Event implements Serializable {
     private int type;   //0-classics, 1-foxoring, 2-sprint, 3-long
 
     //private ArrayList<Track> tracksList = new ArrayList<Track>();
+    private ArrayList<ControlPoint> controlPointList = new ArrayList<ControlPoint>();
     private ArrayList<Category> categoriesList = new ArrayList<Category>();
     private ArrayList<Competitor> competitorsList = new ArrayList<Competitor>();
 
@@ -100,6 +102,14 @@ public class Event implements Serializable {
         oldCategory.setMinAge(newCategory.getMinAge());
         oldCategory.setMaxAge(newCategory.getMaxAge());
         oldCategory.setControlPoints(newCategory.getControlPoints());
+    }
+
+    public ArrayList<ControlPoint> getControlPoints(){
+        return this.controlPointList;
+    }
+
+    public void addControlPoint(ControlPoint c){
+        this.controlPointList.add(c);
     }
 
 

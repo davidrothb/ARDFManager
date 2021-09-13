@@ -24,4 +24,9 @@
         android:name="com.david.ardfmanager.results.results_fragment"
         android:label="@string/title_results"
         tools:layout="@layout/fragment_results" />
+    <fragment
+        android:id="@+id/controlPointsFragment"
+        android:name="com.david.ardfmanager.controlPointsFragment"
+        android:label="@string/title_control_points"
+        tools:layout="@layout/fragment_control_points" />
 </navigation>

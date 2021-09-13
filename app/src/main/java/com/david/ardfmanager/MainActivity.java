@@ -14,10 +14,14 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.NumberPicker;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +31,8 @@ import com.david.ardfmanager.SI.Punch;
 import com.david.ardfmanager.category.CategoryListAdapter;
 import com.david.ardfmanager.competitors.CompetitorsListAdapter;
 import com.david.ardfmanager.competitors.competitors_fragment;
+import com.david.ardfmanager.controlpoint.ControlPoint;
+import com.david.ardfmanager.controlpoint.ControlPointAdapter;
 import com.david.ardfmanager.event.Event;
 import com.david.ardfmanager.event.EventsManagerActivity;
 import com.david.ardfmanager.readouts.SIReadout;
@@ -54,9 +60,11 @@ import androidx.navigation.ui.NavigationUI;
 
 public class MainActivity extends AppCompatActivity {
 
-    //ToDo: edit dialogs, saving right after object is created, punch fragment, readout time is broken af
+    //ToDo: edit dialogs, saving right after object is created, readout time is broken af, trate somewhere, controlpointlist refactor
+    //ToDo: predelat control point string jmeno, cislo input klavesnice misto pickeru
 
     //public static TracksListAdapter tracksListAdapter;
+    public static ControlPointAdapter controlPointAdapter;
     public static CategoryListAdapter categoryListAdapter;
     public static CompetitorsListAdapter competitorsListAdapter;
 
@@ -144,6 +152,7 @@ public class MainActivity extends AppCompatActivity {
         context = this;
         
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
+                R.id.controlPointsFragment,
                 R.id.categories,
                 R.id.competitors,
                 R.id.readouts,
@@ -178,6 +187,7 @@ public class MainActivity extends AppCompatActivity {
         if(event.getCompetitorsList().isEmpty()){
             Toast.makeText(MainActivity.this, "Nema zavodniky", Toast.LENGTH_SHORT).show();
         }
+        controlPointAdapter = new ControlPointAdapter(this, R.layout.controlpoint_view_layout, event.getControlPoints());
         categoryListAdapter = new CategoryListAdapter(this, R.layout.category_view_layout, event.getCategoriesList());
         //tracksListAdapter = new TracksListAdapter(this, R.layout.track_view_layout, event.getTracksList());
         competitorsListAdapter = new CompetitorsListAdapter(this, R.layout.competitor_view_layout, event.getCompetitorsList());
@@ -205,6 +215,8 @@ public class MainActivity extends AppCompatActivity {
                     punches.add(new Punch(5,18000));
                     SIReadout siReadout = new SIReadout(1234, 10,100000, 5, punches);
                     siReadoutList.add(siReadout);
+                }else if(currentFragment == getResources().getString(R.string.title_control_points)){
+                    showAddControlPointDialog();
                 }
                 setAllAdaptersAndSave();
             }
@@ -307,7 +319,7 @@ public class MainActivity extends AppCompatActivity {
         if (categories_fragment.mListView != null) {
             categories_fragment.mListView.setAdapter(categoryListAdapter);
         }else{
-            Log.d("fragments", "Tracks fragment object is null");
+            Log.d("fragments", "Categories fragment object is null");
         }
 
         if (competitors_fragment.mListView != null) {
@@ -320,6 +332,12 @@ public class MainActivity extends AppCompatActivity {
             readouts_fragment.mListView.setAdapter(siReadoutListAdapter);
         }else{
             Log.d("fragments", "Readout fragment object is null");
+        }
+
+        if (controlPointsFragment.mListView != null) {
+            controlPointsFragment.mListView.setAdapter(controlPointAdapter);
+        }else{
+            Log.d("fragments", "Control points fragment object is null");
         }
         Log.d("SAVING", "BY se ulozilo");
         EventsManagerActivity.saveEventToFile(event);
@@ -351,4 +369,63 @@ public class MainActivity extends AppCompatActivity {
         long hundreds = (time - minutes * 60 * 1000 - seconds * 1000);
         return (String)String.valueOf(minutes) + ":" + String.valueOf(seconds) + "." + String.valueOf(hundreds);
     }
+
+    public void showAddControlPointDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(R.string.new_control_point);
+        final View customLayout = LayoutInflater.from(this).inflate(R.layout.dialog_add_punch, null);
+        builder.setView(customLayout);
+
+        final NumberPicker punchNumPick = customLayout.findViewById(R.id.birthYear);
+        final NumberPicker punchCodePick = customLayout.findViewById(R.id.maxAgeNumPick);
+        final RadioGroup typePicker = customLayout.findViewById(R.id.typePicker);
+        final RadioButton rb_basic_cp = customLayout.findViewById(R.id.rb_basic_cp);
+        final RadioButton rb_spec_cp = customLayout.findViewById(R.id.rb_spec_cp);
+        final RadioButton rb_beacon_cp = customLayout.findViewById(R.id.rb_beacon_cp);
+
+        punchNumPick.setMinValue(0);
+        punchNumPick.setMaxValue(99);
+
+        punchCodePick.setMinValue(0);
+        punchCodePick.setMaxValue(99);
+
+        builder.setPositiveButton(R.string.ok, null);
+
+        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        final AlertDialog alert = builder.create();
+        alert.show();
+
+        alert.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                String number = ""+punchNumPick.getValue();
+                int code = punchCodePick.getValue();
+                int type;
+                if(typePicker.getCheckedRadioButtonId() == rb_basic_cp.getId()){
+                    type = 0;
+                }else if(typePicker.getCheckedRadioButtonId() == rb_beacon_cp.getId()){
+                    type = 1;
+                }else if(typePicker.getCheckedRadioButtonId() == rb_spec_cp.getId()){
+                    type = 2;
+                }else{
+                    type = -1;
+                }
+
+                ControlPoint cp = new ControlPoint(number, code, type);
+                event.addControlPoint(cp);
+                setAllAdaptersAndSave();
+                alert.dismiss();
+            }
+
+        });
+    }
+
 }

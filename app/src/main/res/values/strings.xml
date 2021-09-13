@@ -124,5 +124,6 @@
     <string name="cp_status">CP status</string>
     <string name="time_from_start">Time from start</string>
     <string name="split_time">Split time</string>
+    <string name="title_control_points">Control points</string>
 
 </resources>

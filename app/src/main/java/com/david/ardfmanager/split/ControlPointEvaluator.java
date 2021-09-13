@@ -1,5 +1,6 @@
 package com.david.ardfmanager.split;
 
+import com.david.ardfmanager.MainActivity;
 import com.david.ardfmanager.SI.Punch;
 import com.david.ardfmanager.controlpoint.ControlPoint;
 
@@ -14,7 +15,7 @@ public class ControlPointEvaluator {
     //fields section
     //TODO connect them with actual competitors and controlPoints
 
-    private int eventType; //this value is obtained from the Event class: 0-classics, 1-foxoring, 2-sprint, 3-long
+    private int eventType = MainActivity.event.getType(); //this value is obtained from the Event class: 0-classics, 1-foxoring, 2-sprint, 3-long
     private String category; //TODO: Add a method to get the competitors' category
 
 
