@@ -10,5 +10,10 @@ public class Results {
 
   //This class sorts the CompetitorsList by the time and valid foxes
 
+    //method for sorting the ArrayList
+    public void sortAL(){
+
+
+    }
 
 }

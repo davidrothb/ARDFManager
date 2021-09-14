@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class SplitsProcessor {
 
 
-     //TODO: Reference to the actual arrayList
+    //TODO: Reference to the actual arrayList
     private ArrayList<Split> splits = new ArrayList<Split>();
 
     private long startTime;
@@ -17,16 +17,22 @@ public class SplitsProcessor {
 
     //This method is responsible for setting the correct times of check, start, and finish
     public void setTimes() {
-
+        setStartTime();
+        setFinishTime();
     }
 
     public void setStartTime() {
+        //This method either gets the time from the SI or sets the time based on the Competitor preset
 
     }
 
+    public void setFinishTime() {
+
+
+    }
     //THE IMPORTANT SHIT
 
-    public ArrayList<Split> readoutToSplits(SIReadout siReadout){
+    public ArrayList<Split> readoutToSplits(SIReadout siReadout) {
         startTime = siReadout.getStartTime();
         finishTime = siReadout.getFinishTime();
 
@@ -34,7 +40,6 @@ public class SplitsProcessor {
 
         return splits;
     }
-
 
 
     public long calculateRunTime(long startTime, long finishTime) {
