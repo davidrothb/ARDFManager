@@ -45,6 +45,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Random;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -220,6 +221,28 @@ public class MainActivity extends AppCompatActivity {
                     showAddControlPointDialog();
                 }
                 setAllAdaptersAndSave();
+            }
+        });
+
+        fab.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                String currentFragment = navController.getCurrentDestination().getLabel().toString();
+                System.out.println(currentFragment);
+
+                if(currentFragment == getResources().getString(R.string.title_tracks)){
+
+                }else if(currentFragment == getResources().getString(R.string.title_competitors)){
+
+                }else if(currentFragment == getResources().getString(R.string.title_readouts)){
+
+                }else if(currentFragment == getResources().getString(R.string.title_control_points)){
+                    for(int i = 0; i < 10; i++){
+                        event.addControlPoint(new ControlPoint(String.valueOf(i), i, new Random().nextInt(2)));
+                    }
+                }
+                setAllAdaptersAndSave();
+                return false;
             }
         });
 

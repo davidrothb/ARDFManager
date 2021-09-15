@@ -3,6 +3,7 @@ package com.david.ardfmanager.category;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -16,6 +17,7 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.NumberPicker;
 import android.widget.RadioButton;
@@ -51,7 +53,7 @@ public class Categories_fragment extends Fragment {
     static View view;
 
     //track add dialog ui
-    static Button confButton, addPunchButton;
+    static Button confButton;
     static EditText nameEditText, lengthEditText;
     static NumberPicker minAgeNumPick, maxAgeNumPick;
     static ListView cplv;
@@ -94,7 +96,7 @@ public class Categories_fragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        /*View*/ view = inflater.inflate(R.layout.fragment_categories, container, false);
+        view = inflater.inflate(R.layout.fragment_categories, container, false);
         //return inflater.inflate(R.layout.fragment_tracks, container, false);
         mListView = (ListView) view.findViewById(R.id.tracksListView);
         mListView.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
@@ -132,7 +134,6 @@ public class Categories_fragment extends Fragment {
 
         //assign ids to ui elements
         confButton = (Button) dialogView.findViewById(R.id.confButton);
-        addPunchButton = (Button) dialogView.findViewById(R.id.addPunchButton);
         nameEditText = (EditText) dialogView.findViewById(R.id.nameEditText);
         lengthEditText = (EditText) dialogView.findViewById(R.id.lengthEditText);
         lengthEditText.setFilters(new InputFilter[] {new DecimalDigitsInputFilter(5,2)});
@@ -141,11 +142,37 @@ public class Categories_fragment extends Fragment {
 
         cplv = (ListView) dialogView.findViewById(R.id.control_points_lv);
         controlPointsList = new ArrayList<ControlPoint>();
-        controlPointAdapter = new ControlPointAdapter(c, R.layout.controlpoint_view_layout, controlPointsList);
+        controlPointAdapter = new ControlPointAdapter(c, R.layout.controlpoint_view_layout,
+                //controlPointsList
+                MainActivity.event.getControlPoints());
 
-        /*/make the control point list show empty item when empty
-        TextView emptyText = (TextView)dialogView.findViewById(R.id.empty_list_item);
-        cplv.setEmptyView(emptyText);*/
+        cplv.setAdapter(controlPointAdapter);
+
+        ListAdapter listadp = cplv.getAdapter();
+        if (listadp != null) {
+            int totalHeight = 0;
+            for (int i = 0; i < listadp.getCount(); i++) {
+                View listItem = listadp.getView(i, null, cplv);
+                listItem.measure(0, 0);
+                totalHeight += listItem.getMeasuredHeight();
+            }
+            ViewGroup.LayoutParams params = cplv.getLayoutParams();
+            params.height = totalHeight + (cplv.getDividerHeight() * (listadp.getCount() - 1));
+            cplv.setLayoutParams(params);
+            cplv.requestLayout();
+        }
+
+        /*cplv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                for(int a = 0; a < adapterView.getChildCount(); a++)
+                {
+                    adapterView.getChildAt(a).setBackgroundColor(Color.TRANSPARENT);
+                }
+
+                view.setBackgroundColor(Color.GREEN);
+            }
+        });*/
 
         minAgeNumPick.setMinValue(MainActivity.MIN_BIRTH_YEAR);
         minAgeNumPick.setMaxValue(MainActivity.MAX_BIRTH_YEAR);
@@ -194,69 +221,6 @@ public class Categories_fragment extends Fragment {
                         MainActivity.setAllAdaptersAndSave();
                         alertDialog.dismiss();
                 }
-            }
-        });
-
-        addPunchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {    //add dialog
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(c);
-                builder.setMessage(R.string.new_control_point);
-                final View customLayout = LayoutInflater.from(c).inflate(R.layout.dialog_add_punch, null);
-                builder.setView(customLayout);
-
-
-                final NumberPicker punchNumPick = customLayout.findViewById(R.id.birthYear);
-                final NumberPicker punchCodePick = customLayout.findViewById(R.id.maxAgeNumPick);
-                final RadioGroup typePicker = customLayout.findViewById(R.id.typePicker);
-                final RadioButton rb_basic_cp = customLayout.findViewById(R.id.rb_basic_cp);
-                final RadioButton rb_spec_cp = customLayout.findViewById(R.id.rb_spec_cp);
-                final RadioButton rb_beacon_cp = customLayout.findViewById(R.id.rb_beacon_cp);
-
-                punchNumPick.setMinValue(0);
-                punchNumPick.setMaxValue(99);
-
-                punchCodePick.setMinValue(0);
-                punchCodePick.setMaxValue(99);
-
-                builder.setPositiveButton(R.string.ok, null);
-
-                builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
-
-                final AlertDialog alert = builder.create();
-                alert.show();
-
-                alert.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener()
-                {
-                    @Override
-                    public void onClick(View v)
-                    {
-                            String number = ""+punchNumPick.getValue();
-                            int code = punchCodePick.getValue();
-                            int type;
-                            if(typePicker.getCheckedRadioButtonId() == rb_basic_cp.getId()){
-                                type = 0;
-                            }else if(typePicker.getCheckedRadioButtonId() == rb_beacon_cp.getId()){
-                                type = 1;
-                            }else if(typePicker.getCheckedRadioButtonId() == rb_spec_cp.getId()){
-                                type = 2;
-                            }else{
-                                type = -1;
-                            }
-
-                            ControlPoint cp = new ControlPoint(number, code, type);
-                            controlPointsList.add(cp);
-                            sortAndSet();
-                            alert.dismiss();
-                    }
-
-                });
             }
         });
     }

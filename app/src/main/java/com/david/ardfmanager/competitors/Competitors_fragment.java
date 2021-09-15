@@ -25,12 +25,6 @@ import com.david.ardfmanager.category.Category;
 
 import java.util.ArrayList;
 
-
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link Competitors_fragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class Competitors_fragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -85,7 +79,6 @@ public class Competitors_fragment extends Fragment {
                              Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.fragment_competitors, container, false);
-        //return inflater.inflate(R.layout.fragment_competitors, container, false);
         mListView = (ListView) view.findViewById(R.id.competitorsListView);
         mListView.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
         mListView.setAdapter(MainActivity.competitorsListAdapter);
@@ -105,7 +98,7 @@ public class Competitors_fragment extends Fragment {
     public static void showCompetitorAddDialog(Context c, Competitor competitor) {
 
         ViewGroup viewGroup = view.findViewById(android.R.id.content);
-        View dialogView = LayoutInflater.from(c).inflate(R.layout.activity_competitor_add, viewGroup, false);
+        View dialogView = LayoutInflater.from(c).inflate(R.layout.dialog_competitor_add, viewGroup, false);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(c);
         builder.setTitle(R.string.add_competitor);

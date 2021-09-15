@@ -5,6 +5,30 @@
       <configuration PROFILE_NAME="Debug" CONFIG_NAME="Debug" />
     </configurations>
   </component>
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/DAVID/Desktop/ARDFManager/app/src/main/res/layout/activity_competitor_add.xml" value="0.1707193515704154" />
+        <entry key="..\:/Users/DAVID/Desktop/ARDFManager/app/src/main/res/layout/activity_events_manager.xml" value="0.1707193515704154" />
+        <entry key="..\:/Users/DAVID/Desktop/ARDFManager/app/src/main/res/layout/activity_main.xml" value="0.1707193515704154" />
+        <entry key="..\:/Users/DAVID/Desktop/ARDFManager/app/src/main/res/layout/activity_main_menu.xml" value="0.1707193515704154" />
+        <entry key="..\:/Users/DAVID/Desktop/ARDFManager/app/src/main/res/layout/activity_splits.xml" value="0.1707193515704154" />
+        <entry key="..\:/Users/DAVID/Desktop/ARDFManager/app/src/main/res/layout/activity_track_add_unused.xml" value="0.1707193515704154" />
+        <entry key="..\:/Users/DAVID/Desktop/ARDFManager/app/src/main/res/layout/category_view_layout.xml" value="0.1707193515704154" />
+        <entry key="..\:/Users/DAVID/Desktop/ARDFManager/app/src/main/res/layout/controlpoint_view_layout.xml" value="0.1707193515704154" />
+        <entry key="..\:/Users/DAVID/Desktop/ARDFManager/app/src/main/res/layout/dialog_add_event.xml" value="0.1707193515704154" />
+        <entry key="..\:/Users/DAVID/Desktop/ARDFManager/app/src/main/res/layout/dialog_category_add.xml" value="0.1707193515704154" />
+        <entry key="..\:/Users/DAVID/Desktop/ARDFManager/app/src/main/res/layout/event_view_layout.xml" value="0.1707193515704154" />
+        <entry key="..\:/Users/DAVID/Desktop/ARDFManager/app/src/main/res/layout/fragment_categories.xml" value="0.1707193515704154" />
+        <entry key="..\:/Users/DAVID/Desktop/ARDFManager/app/src/main/res/layout/fragment_competitors.xml" value="0.1707193515704154" />
+        <entry key="..\:/Users/DAVID/Desktop/ARDFManager/app/src/main/res/layout/fragment_control_points.xml" value="0.1707193515704154" />
+        <entry key="..\:/Users/DAVID/Desktop/ARDFManager/app/src/main/res/layout/fragment_readouts.xml" value="0.1707193515704154" />
+        <entry key="..\:/Users/DAVID/Desktop/ARDFManager/app/src/main/res/layout/sireadout_view_layout.xml" value="0.1707193515704154" />
+        <entry key="..\:/Users/DAVID/Desktop/ARDFManager/app/src/main/res/layout/split_view_layout.xml" value="0.1707193515704154" />
+        <entry key="..\:/Users/DAVID/Desktop/ARDFManager/app/src/main/res/layout/track_view_layout.xml" value="0.1707193515704154" />
+      </map>
+    </option>
+  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
