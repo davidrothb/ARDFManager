@@ -21,7 +21,7 @@ public class ControlPointEvaluator {
     private ArrayList<Split> competitorSplits = new ArrayList<>();
     private ArrayList<ControlPoint> validCPList = new ArrayList<>();
 
-
+    private int status; //The evaluation status 0 - OK, 1-Did Not Finish, 2 - Disqualified, 3 - Exceeded limit, 4 - Not evaluated
     //This method selects the right evaluation algorithm, depending on the type of the event
 
     public void evaluationMethodSelector(int eventType) {
@@ -72,13 +72,26 @@ public class ControlPointEvaluator {
     }
 
 
-    public static void handleSprint() {
+    public void handleSprint() {
+        /*Checks for the  */
+    }
+
+    public void handleOrienteering() {
+        /*Checks if the sequence of controls is the same as the validOnes, even if the sequence is
+        broken at some point */
+
+        for (int i = 0; i < competitorSplits.size(); i++) {
+            if (competitorSplits.get(i).getCode() == validCPList.get(i).getCode()) {
+                competitorSplits.get(i).setCPStatus('+');
+            }
+
+        }
+    }
+
+    public static void classicsLoopHandler() {
 
     }
 
-    public static void handleOrienteering() {
-
-    }
 
     public int foxCounter() {
         int counter = 0;
@@ -87,4 +100,5 @@ public class ControlPointEvaluator {
         return counter;
 
     }
+
 }

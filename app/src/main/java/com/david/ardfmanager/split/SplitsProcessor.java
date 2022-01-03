@@ -2,8 +2,10 @@ package com.david.ardfmanager.split;
 
 import com.david.ardfmanager.MainActivity;
 import com.david.ardfmanager.SI.Punch;
+import com.david.ardfmanager.competitors.Competitor;
 import com.david.ardfmanager.readouts.SIReadout;
 
+import java.sql.Time;
 import java.util.ArrayList;
 
 public class SplitsProcessor {
@@ -15,20 +17,15 @@ public class SplitsProcessor {
     private long startTime;
     private long finishTime;
 
-    //This method is responsible for setting the correct times of check, start, and finish
-    public void setTimes() {
-        setStartTime();
-        setFinishTime();
-    }
-
-    public void setStartTime() {
+    public long setStartTime() {
         //This method either gets the time from the SI or sets the time based on the Competitor preset
 
+        return 0;
     }
 
-    public void setFinishTime() {
+    public long setFinishTime() {
 
-
+        return 0;
     }
     //THE IMPORTANT SHIT
 

@@ -24,8 +24,8 @@ public class Competitor implements Serializable {
     private String index;
 
     //The times are get from the SI readout
-    private Time startTime;
-    private Time finishTime;
+    private long startTime;
+    private long finishTime;
 
     //The arrayList of splits of each competitor - gonna be assigned by the readout component
     private ArrayList<Split> splits = new ArrayList<Split>();
@@ -97,17 +97,17 @@ public class Competitor implements Serializable {
         this.category = category;
     }
 
-    public Time getStartTime() {
+    public long getStartTime() {
         return startTime;
     }
-    public void setStartTime(Time startTime) {
+    public void setStartTime(long startTime) {
         this.startTime = startTime;
     }
 
-    public Time getFinishTime() {
+    public long getFinishTime() {
         return finishTime;
     }
-    public void setFinishTime(Time finishTime) {
+    public void setFinishTime(long finishTime) {
         this.finishTime = finishTime;
     }
 
